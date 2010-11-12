@@ -10,20 +10,16 @@ import javax.persistence.OneToMany;
 public class Spot extends SimpleEntity {
 
 	private String name;
-
 	private double latitude;
-
 	private double longitude;
-
 	private String image;
-
 	@OneToMany
-    private List<Item> items;
+	private List<Item> items;
 
 	////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////
-
+	
 	public String getName() {
 		return name;
 	}
@@ -42,8 +38,8 @@ public class Spot extends SimpleEntity {
 	}
 
 	public void setImage(Image image) {
-        this.image = image.getUrl();
-    }
+		this.image = image.getUrl();
+	}
 
 	public Image getImage() {
 		return new Image(this.image);
@@ -56,5 +52,4 @@ public class Spot extends SimpleEntity {
 	public void removeFollowedType(Item type) {
 		items.remove(type);
 	}
-
 }

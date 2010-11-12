@@ -3,11 +3,11 @@ package cz.cvut.x33eja.gowalla.model;
 /**
  *
  * @author Vasek Purchart
+ * @author Ondřej Mirtes
  */
 public class Location {
 
 	private double latitude;
-
 	private double longitude;
 
 	Location(double latitude, double longitude) {
@@ -47,5 +47,4 @@ public class Location {
 		hash = 37 * hash + (int) (Double.doubleToLongBits(this.longitude) ^ (Double.doubleToLongBits(this.longitude) >>> 32));
 		return hash;
 	}
-
 }

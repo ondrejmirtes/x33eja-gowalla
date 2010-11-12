@@ -6,21 +6,20 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author ondrej
+ * @author Ondřej Mirtes
  */
 @Stateless
 public class PersonFacade extends AbstractFacade<Person> implements IPersonFacadeLocal {
-	
-    @PersistenceContext(unitName = "gowalla-ejbPU")
-    private EntityManager em;
 
-    @Override
-    protected EntityManager getEntityManager() {
-        return em;
-    }
+	@PersistenceContext(unitName = "gowalla-ejbPU")
+	private EntityManager em;
 
-    public PersonFacade() {
-        super(Person.class);
-    }
+	@Override
+	protected EntityManager getEntityManager() {
+		return em;
+	}
 
+	public PersonFacade() {
+		super(Person.class);
+	}
 }

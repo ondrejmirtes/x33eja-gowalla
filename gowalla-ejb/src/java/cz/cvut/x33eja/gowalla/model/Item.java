@@ -5,49 +5,45 @@ import javax.persistence.ManyToOne;
 
 /**
  *
- * @author ondrej
+ * @author Ondřej Mirtes
  */
 @Entity
 public class Item extends SimpleEntity {
 
-    private Integer number;
-
-    @ManyToOne
-    private Person person;
-
-    @ManyToOne
-    private Collection collection;
-
+	private Integer number;
+	@ManyToOne
+	private Person person;
+	@ManyToOne
+	private Collection collection;
 	@ManyToOne
 	private ItemType itemType;
 
 	////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////
+	public Integer getNumber() {
+		return number;
+	}
 
-    public Integer getNumber() {
-        return number;
-    }
+	public void setNumber(Integer number) {
+		this.number = number;
+	}
 
-    public void setNumber(Integer number) {
-        this.number = number;
-    }
+	public Person getPerson() {
+		return person;
+	}
 
-    public Person getPerson() {
-        return person;
-    }
+	public void setPerson(Person person) {
+		this.person = person;
+	}
 
-    public void setPerson(Person person) {
-        this.person = person;
-    }
+	public Collection getCollection() {
+		return collection;
+	}
 
-    public Collection getCollection() {
-        return collection;
-    }
-
-    public void setCollection(Collection collection) {
-        this.collection = collection;
-    }
+	public void setCollection(Collection collection) {
+		this.collection = collection;
+	}
 
 	public ItemType getItemType() {
 		return itemType;
@@ -56,5 +52,4 @@ public class Item extends SimpleEntity {
 	public void setItemType(ItemType itemType) {
 		this.itemType = itemType;
 	}
-
 }

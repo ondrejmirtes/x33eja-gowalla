@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package cz.cvut.x33eja.gowalla.model;
 
 import javax.persistence.EntityManager;
@@ -13,13 +8,12 @@ import org.junit.After;
 import org.junit.Before;
 
 /**
- *
+ * Base test case containing EntityManager for testing entities persisting.
  * @author Ondřej Mirtes
  */
 abstract public class EntityManagerTestCase {
 
 	private static final String TEST_PERSISTENCE_UNIT = "gowalla-testPU";
-
 	private EntityManagerFactory emf;
 	protected EntityManager em;
 	protected EntityTransaction tr;
@@ -38,5 +32,4 @@ abstract public class EntityManagerTestCase {
 		em.close();
 		emf.close();
 	}
-
 }

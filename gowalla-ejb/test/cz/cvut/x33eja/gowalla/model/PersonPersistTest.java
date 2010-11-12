@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package cz.cvut.x33eja.gowalla.model;
 
 import org.junit.Before;
@@ -43,5 +38,4 @@ public class PersonPersistTest extends EntityManagerTestCase {
 		em.remove(p);
 		assertNull(em.find(Person.class, p.getId()));
 	}
-
 }
