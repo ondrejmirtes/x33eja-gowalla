@@ -1,6 +1,6 @@
 package cz.cvut.x33eja.gowalla.model;
 
-import com.sun.istack.internal.Nullable;
+
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
@@ -23,7 +23,6 @@ public class Person extends SimpleEntity {
 	private float longitude;
 
 	@OneToOne
-	@Nullable
 	private OAuth oAuth;
 
 	@OneToOne
