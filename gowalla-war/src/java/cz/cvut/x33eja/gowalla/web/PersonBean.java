@@ -6,7 +6,7 @@
 package cz.cvut.x33eja.gowalla.web;
 
 import cz.cvut.x33eja.gowalla.model.Person;
-import cz.cvut.x33eja.gowalla.model.PersonFacadeLocal;
+import cz.cvut.x33eja.gowalla.model.IPersonFacadeLocal;
 import java.util.List;
 import java.util.Map;
 import javax.ejb.EJB;
@@ -24,7 +24,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class PersonBean {
 
     @EJB
-    private PersonFacadeLocal facade;
+    private IPersonFacadeLocal facade;
 
     @NotEmpty(message="Name must be set!")
     private String name;

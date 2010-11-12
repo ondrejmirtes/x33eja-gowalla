@@ -9,7 +9,8 @@ import javax.persistence.PersistenceContext;
  * @author ondrej
  */
 @Stateless
-public class PersonFacade extends AbstractFacade<Person> implements PersonFacadeLocal {
+public class PersonFacade extends AbstractFacade<Person> implements IPersonFacadeLocal {
+	
     @PersistenceContext(unitName = "gowalla-ejbPU")
     private EntityManager em;
 
