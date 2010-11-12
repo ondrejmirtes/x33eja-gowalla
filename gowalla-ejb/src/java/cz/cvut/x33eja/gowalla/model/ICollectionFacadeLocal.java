@@ -16,11 +16,11 @@ public interface ICollectionFacadeLocal {
 	////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////
 
-	void create(Person person);
+	void create(Collection collection);
 
-    void edit(Person person);
+    void edit(Collection collection);
 
-    void remove(Person person);
+    void remove(Collection collection);
 
     Person find(Object id);
 

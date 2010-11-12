@@ -18,11 +18,11 @@ public interface IItemTypeFacadeLocal {
 	////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////
 
-	void create(Person person);
+	void create(ItemType itemType);
 
-    void edit(Person person);
+    void edit(ItemType itemType);
 
-    void remove(Person person);
+    void remove(ItemType itemType);
 
     Person find(Object id);
 

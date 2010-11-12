@@ -16,11 +16,11 @@ public interface ISpotFacadeLocal {
 	////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////
 
-	void create(Person person);
+	void create(Spot spot);
 
-    void edit(Person person);
+    void edit(Spot spot);
 
-    void remove(Person person);
+    void remove(Spot spot);
 
     Person find(Object id);
 

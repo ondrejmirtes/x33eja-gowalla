@@ -16,11 +16,11 @@ public interface IOAuthFacadeLocal {
 	////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////
 
-	void create(Person person);
+	void create(OAuth oAuth);
 
-    void edit(Person person);
+    void edit(OAuth oAuth);
 
-    void remove(Person person);
+    void remove(OAuth oAuth);
 
     Person find(Object id);
 
