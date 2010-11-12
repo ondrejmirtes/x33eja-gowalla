@@ -5,12 +5,14 @@ import javax.ejb.Local;
 
 /**
  *
- * @author ondrej
+ * @author Vasek Purchart
  */
 @Local
-public interface IPersonFacadeLocal {
+public interface IItemTypeFacadeLocal {
 
-    // custom methods here
+    List<Item> findItems(List<ItemType> itemType, Spot spot);
+
+	List<Item> findFollowedItems(Person person, List<Spot> spots);
 
 	////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////
@@ -29,5 +31,5 @@ public interface IPersonFacadeLocal {
     List<Person> findRange(int[] range);
 
     int count();
-
+	
 }

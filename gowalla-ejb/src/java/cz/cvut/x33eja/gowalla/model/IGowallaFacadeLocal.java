@@ -5,12 +5,18 @@ import javax.ejb.Local;
 
 /**
  *
- * @author ondrej
+ * @author Vasek Purchart
  */
 @Local
-public interface IPersonFacadeLocal {
+public interface IGowallaFacadeLocal {
 
-    // custom methods here
+    void updatePersonLocation(Person person);
+
+	void updateSpotItems(Spot spot);
+
+	void updateNearestSpots(Location location, Integer count);
+
+	boolean hasPersonThisItemType(Person person, ItemType itemType);
 
 	////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////

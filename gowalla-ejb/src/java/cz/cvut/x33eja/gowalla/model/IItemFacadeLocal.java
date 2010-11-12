@@ -5,12 +5,12 @@ import javax.ejb.Local;
 
 /**
  *
- * @author ondrej
+ * @author Vasek Purchart
  */
 @Local
-public interface IPersonFacadeLocal {
+public interface IItemFacadeLocal {
 
-    // custom methods here
+	// custom methods here
 
 	////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////

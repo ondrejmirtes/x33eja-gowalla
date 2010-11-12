@@ -5,12 +5,12 @@ import javax.ejb.Local;
 
 /**
  *
- * @author ondrej
+ * @author Vasek Purchart
  */
 @Local
-public interface IPersonFacadeLocal {
+public interface ISpotFacadeLocal {
 
-    // custom methods here
+    List<Spot> findNearestSpots(Location location, Integer count);
 
 	////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////

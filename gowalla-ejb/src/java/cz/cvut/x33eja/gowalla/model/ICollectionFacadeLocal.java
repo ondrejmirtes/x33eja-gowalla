@@ -5,12 +5,12 @@ import javax.ejb.Local;
 
 /**
  *
- * @author ondrej
+ * @author Vasek Purchart
  */
 @Local
-public interface IPersonFacadeLocal {
+public interface ICollectionFacadeLocal {
 
-    // custom methods here
+    List<ItemType> findMissingItemTypes(Person person);
 
 	////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////
