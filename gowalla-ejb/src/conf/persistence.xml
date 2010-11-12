@@ -2,9 +2,31 @@
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
   <persistence-unit name="gowalla-ejbPU" transaction-type="JTA">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <jta-data-source>gowalla3</jta-data-source>
+    <jta-data-source>gowalla</jta-data-source>
     <properties>
       <property name="eclipselink.ddl-generation" value="create-tables"/>
     </properties>
   </persistence-unit>
+  <persistence-unit name="gowalla-testPU" transaction-type="RESOURCE_LOCAL">
+    <class>cz.cvut.x33eja.gowalla.model.Person</class>
+	<class>cz.cvut.x33eja.gowalla.model.Collection</class>
+	<class>cz.cvut.x33eja.gowalla.model.Item</class>
+	<class>cz.cvut.x33eja.gowalla.model.ItemType</class>
+	<class>cz.cvut.x33eja.gowalla.model.Location</class>
+	<class>cz.cvut.x33eja.gowalla.model.OAuth</class>
+	<class>cz.cvut.x33eja.gowalla.model.Spot</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+
+    <properties>
+      <!--property name="eclipselink.target-database" value="DERBY"/-->
+      <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/gowalla;create=true"/>
+      <property name="javax.persistence.jdbc.user" value="gowalla"/>
+      <property name="javax.persistence.jdbc.password" value="gowalla"/>
+
+      <property name="eclipselink.ddl-generation" value="create-tables"/>
+	  <property name="eclipselink.weaving" value="static" />
+    </properties>
+  </persistence-unit>
+
 </persistence>
