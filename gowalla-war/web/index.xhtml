@@ -4,30 +4,12 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Hello world!</title>
     </h:head>
     <h:body>
+		<h1>X33EJA - Gowalla</h1>
 
-        <h:link outcome="newPerson">Create new person</h:link>
-
-        <f:view>
-            <h:form>
-                <h1><h:outputText value="List"/></h1>
-                <h:dataTable value="#{personBean.persons}" var="item">
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Name"/>
-                        </f:facet>
-                        <h:outputText value="#{item.name}"/>
-                        <h:link outcome="editPerson" >
-                            <f:param name="id" value="#{item.id}" />
-                            (edit)
-                        </h:link>
-                    </h:column>
-                </h:dataTable>
-            </h:form>
-        </f:view>
-
+		<p>Václav Purchart, Ondřej Mirtes</p>
     </h:body>
 </html>
 
