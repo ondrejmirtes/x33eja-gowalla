@@ -18,6 +18,9 @@ public class Item extends SimpleEntity {
     @ManyToOne
     private Collection collection;
 
+	@ManyToOne
+	private ItemType itemType;
+
 	////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////
@@ -45,5 +48,13 @@ public class Item extends SimpleEntity {
     public void setCollection(Collection collection) {
         this.collection = collection;
     }
+
+	public ItemType getItemType() {
+		return itemType;
+	}
+
+	public void setItemType(ItemType itemType) {
+		this.itemType = itemType;
+	}
 
 }
