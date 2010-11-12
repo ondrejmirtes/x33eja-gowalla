@@ -1,5 +1,6 @@
 package cz.cvut.x33eja.gowalla.model;
 
+import com.sun.istack.internal.Nullable;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
@@ -16,15 +17,6 @@ public class Person extends SimpleEntity {
     private String nick;
 
     private String name;
-    
-    @OneToOne
-    private Collection collection;
-
-    @OneToMany
-    private List<Item> items;
-
-    @ManyToMany
-    private List<ItemType> followedTypes;
 
 	private float latitude;
 
@@ -33,6 +25,15 @@ public class Person extends SimpleEntity {
 	@OneToOne
 	@Nullable
 	private OAuth oAuth;
+
+	@OneToOne
+    private Collection collection;
+
+    @OneToMany
+    private List<Item> items;
+
+    @ManyToMany
+    private List<ItemType> followedTypes;
 
 	////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////
@@ -56,6 +57,14 @@ public class Person extends SimpleEntity {
 
 	public Location getLocation() {
 		return new Location(this.latitude, this.longitude);
+	}
+
+	public OAuth getOAuth() {
+		return oAuth;
+	}
+
+	public void setOAuth(OAuth $oAuth) {
+		this.oAuth = $oAuth;
 	}
 
 	public void setLocation(Location location) {
