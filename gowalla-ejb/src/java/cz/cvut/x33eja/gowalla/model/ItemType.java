@@ -27,8 +27,8 @@ public class ItemType extends SimpleEntity {
         this.name = name;
     }
 
-    public String getImage() {
-        return image;
+    public Image getImage() {
+        return new Image(image);
     }
 
     public void setImage(Image image) {

@@ -63,8 +63,8 @@ public class Person extends SimpleEntity {
 		return oAuth;
 	}
 
-	public void setOAuth(OAuth $oAuth) {
-		this.oAuth = $oAuth;
+	public void setOAuth(OAuth oAuth) {
+		this.oAuth = oAuth;
 	}
 
 	public void setLocation(Location location) {
@@ -91,5 +91,17 @@ public class Person extends SimpleEntity {
     public void removeItem(Item item) {
         items.remove(item);
     }
+
+	public List<ItemType> getFollowedTypes() {
+		return followedTypes;
+	}
+
+	public void addFollowedType(ItemType type) {
+		followedTypes.add(type);
+	}
+
+	public void removeFollowedType(ItemType type) {
+		followedTypes.remove(type);
+	}
 
 }
