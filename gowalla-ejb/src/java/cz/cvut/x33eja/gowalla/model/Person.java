@@ -1,6 +1,7 @@
 package cz.cvut.x33eja.gowalla.model;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
@@ -18,9 +19,9 @@ public class Person extends SimpleEntity {
 
     private String name;
 
-	private float latitude;
+	private double latitude;
 
-	private float longitude;
+	private double longitude;
 
 	@OneToOne
 	private OAuth oAuth;
@@ -29,7 +30,7 @@ public class Person extends SimpleEntity {
     private Collection collection;
 
     @OneToMany
-    private List<Item> items;
+    private List<Item> items = new ArrayList<Item>();
 
     @ManyToMany
     private List<ItemType> followedTypes;
@@ -58,17 +59,17 @@ public class Person extends SimpleEntity {
 		return new Location(this.latitude, this.longitude);
 	}
 
+	public void setLocation(Location location) {
+		this.latitude = location.getLatitude();
+		this.longitude = location.getLongitude();
+	}
+
 	public OAuth getOAuth() {
 		return oAuth;
 	}
 
 	public void setOAuth(OAuth oAuth) {
 		this.oAuth = oAuth;
-	}
-
-	public void setLocation(Location location) {
-		this.latitude = location.getLatitude();
-		this.longitude = location.getLongitude();
 	}
 
     public Collection getCollection() {

@@ -11,9 +11,9 @@ public class Spot extends SimpleEntity {
 
 	private String name;
 
-	private float latitude;
+	private double latitude;
 
-	private float longitude;
+	private double longitude;
 
 	private String image;
 
