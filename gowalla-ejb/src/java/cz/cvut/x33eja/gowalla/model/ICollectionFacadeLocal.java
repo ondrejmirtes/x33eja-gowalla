@@ -10,6 +10,12 @@ import javax.ejb.Local;
 @Local
 public interface ICollectionFacadeLocal {
 
+	/**
+	 * Find which items (item types) are missing from user's collection
+	 *
+	 * @param person
+	 * @return
+	 */
     List<ItemType> findMissingItemTypes(Person person);
 
 	////////////////////////////////////////////////////////////////////////////

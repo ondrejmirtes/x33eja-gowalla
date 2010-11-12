@@ -10,8 +10,22 @@ import javax.ejb.Local;
 @Local
 public interface IItemTypeFacadeLocal {
 
+	/**
+	 * Find items of ItemType at specified spot
+	 *
+	 * @param itemType
+	 * @param spot
+	 * @return
+	 */
     List<Item> findItems(List<ItemType> itemType, Spot spot);
 
+	/**
+	 * Find all items (of item types which user follows) at given list of spots
+	 *
+	 * @param person
+	 * @param spots
+	 * @return
+	 */
 	List<Item> findFollowedItems(Person person, List<Spot> spots);
 
 	////////////////////////////////////////////////////////////////////////////

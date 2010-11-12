@@ -9,12 +9,35 @@ import javax.ejb.Local;
 @Local
 public interface IGowallaFacadeLocal {
 
+	/**
+	 * Update user's location based on last check-in
+	 *
+	 * @param person
+	 */
     void updatePersonLocation(Person person);
 
+	/**
+	 * Update list of items present at given spot
+	 *
+	 * @param spot
+	 */
 	void updateSpotItems(Spot spot);
 
+	/**
+	 * Download list of nearest items and add them to DB (if they are not alreday there)
+	 *
+	 * @param location
+	 * @param count
+	 */
 	void updateNearestSpots(Location location, Integer count);
 
+	/**
+	 * Checks in API if user has this ItemType in his collection
+	 *
+	 * @param person
+	 * @param itemType
+	 * @return
+	 */
 	boolean hasPersonThisItemType(Person person, ItemType itemType);
 
 }

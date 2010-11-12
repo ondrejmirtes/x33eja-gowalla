@@ -10,6 +10,13 @@ import javax.ejb.Local;
 @Local
 public interface ISpotFacadeLocal {
 
+	/**
+	 * Find nearest spots to given location (limited by maximum count)
+	 *
+	 * @param location
+	 * @param count
+	 * @return
+	 */
     List<Spot> findNearestSpots(Location location, Integer count);
 
 	////////////////////////////////////////////////////////////////////////////
