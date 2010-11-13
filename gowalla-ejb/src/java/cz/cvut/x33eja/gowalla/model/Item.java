@@ -1,5 +1,6 @@
 package cz.cvut.x33eja.gowalla.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
@@ -11,11 +12,13 @@ import javax.persistence.ManyToOne;
 public class Item extends SimpleEntity {
 
 	private Integer number;
-	@ManyToOne
+	@ManyToOne(cascade={CascadeType.PERSIST})
 	private Person person;
-	@ManyToOne
+	@ManyToOne(cascade={CascadeType.PERSIST})
 	private Collection collection;
-	@ManyToOne
+	@ManyToOne(cascade={CascadeType.PERSIST})
+	private Spot spot;
+	@ManyToOne(cascade={CascadeType.PERSIST})
 	private ItemType itemType;
 
 	////////////////////////////////////////////////////////////////////////////
@@ -43,6 +46,14 @@ public class Item extends SimpleEntity {
 
 	public void setCollection(Collection collection) {
 		this.collection = collection;
+	}
+
+	public Spot getSpot() {
+		return spot;
+	}
+
+	public void setSpot(Spot spot) {
+		this.spot = spot;
 	}
 
 	public ItemType getItemType() {

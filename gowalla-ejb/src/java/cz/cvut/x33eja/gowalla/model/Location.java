@@ -1,6 +1,7 @@
 package cz.cvut.x33eja.gowalla.model;
 
 /**
+ * Specific location on the map - contains latitude and longitude coordinates.
  *
  * @author Vasek Purchart
  * @author Ondřej Mirtes

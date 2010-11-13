@@ -3,6 +3,8 @@ package cz.cvut.x33eja.gowalla.model;
 import javax.persistence.Entity;
 
 /**
+ * Three-way authorization credentials for accessing the Gowalla API
+ * via the user identity without his username and passord.
  *
  * @author Vasek Purchart
  */

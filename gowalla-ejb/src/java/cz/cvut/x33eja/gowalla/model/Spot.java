@@ -1,20 +1,24 @@
 package cz.cvut.x33eja.gowalla.model;
 
+import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
 /**
- *
+ * Check-in location containing items.
  * @author Vasek Purchart
  */
+@Entity
 public class Spot extends SimpleEntity {
 
 	private String name;
 	private double latitude;
 	private double longitude;
 	private String image;
-	@OneToMany
-	private List<Item> items;
+	@OneToMany(cascade={CascadeType.PERSIST}, mappedBy="spot")
+	private List<Item> items = new ArrayList<Item>();
 
 	////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////
@@ -45,11 +49,15 @@ public class Spot extends SimpleEntity {
 		return new Image(this.image);
 	}
 
+	public List<Item> getItems() {
+		return items;
+	}
+
 	public void addItem(Item item) {
 		items.add(item);
 	}
 
-	public void removeFollowedType(Item type) {
-		items.remove(type);
+	public void removeItem(Item item) {
+		items.remove(item);
 	}
 }

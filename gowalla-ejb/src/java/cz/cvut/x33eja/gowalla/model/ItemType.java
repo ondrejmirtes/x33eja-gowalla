@@ -3,6 +3,7 @@ package cz.cvut.x33eja.gowalla.model;
 import javax.persistence.Entity;
 
 /**
+ * Category of items.
  *
  * @author Ondřej Mirtes
  */

@@ -2,12 +2,14 @@ package cz.cvut.x33eja.gowalla.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 /**
+ * User of the application.
  *
  * @author Vasek Purchart
  * @author Ondřej Mirtes
@@ -19,14 +21,14 @@ public class Person extends SimpleEntity {
 	private String name;
 	private double latitude;
 	private double longitude;
-	@OneToOne
+	@OneToOne(cascade={CascadeType.PERSIST})
 	private OAuth oAuth;
-	@OneToOne
+	@OneToOne(cascade={CascadeType.PERSIST})
 	private Collection collection;
-	@OneToMany
+	@OneToMany(cascade={CascadeType.PERSIST}, mappedBy="person")
 	private List<Item> items = new ArrayList<Item>();
-	@ManyToMany
-	private List<ItemType> followedTypes;
+	@ManyToMany(cascade={CascadeType.PERSIST})
+	private List<ItemType> followedTypes = new ArrayList<ItemType>();
 
 	////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////
