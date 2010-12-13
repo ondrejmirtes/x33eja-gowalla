@@ -1,5 +1,8 @@
 package cz.cvut.x33eja.gowalla.model;
 
+import cz.cvut.x33eja.gowalla.model.item.ItemType;
+import cz.cvut.x33eja.gowalla.model.spot.Spot;
+import cz.cvut.x33eja.gowalla.model.person.Person;
 import javax.ejb.Local;
 
 /**

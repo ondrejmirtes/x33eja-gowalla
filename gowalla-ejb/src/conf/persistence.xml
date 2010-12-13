@@ -8,13 +8,13 @@
     </properties>
   </persistence-unit>
   <persistence-unit name="gowalla-testPU" transaction-type="RESOURCE_LOCAL">
-    <class>cz.cvut.x33eja.gowalla.model.Collection</class>
-    <class>cz.cvut.x33eja.gowalla.model.Item</class>
-    <class>cz.cvut.x33eja.gowalla.model.ItemType</class>
     <class>cz.cvut.x33eja.gowalla.model.Location</class>
-    <class>cz.cvut.x33eja.gowalla.model.Person</class>
     <class>cz.cvut.x33eja.gowalla.model.OAuth</class>
-    <class>cz.cvut.x33eja.gowalla.model.Spot</class>
+    <class>cz.cvut.x33eja.gowalla.model.person.Person</class>
+    <class>cz.cvut.x33eja.gowalla.model.item.Item</class>
+    <class>cz.cvut.x33eja.gowalla.model.item.ItemType</class>
+    <class>cz.cvut.x33eja.gowalla.model.spot.Spot</class>
+    <class>cz.cvut.x33eja.gowalla.model.item.Collection</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <!--property name="eclipselink.target-database" value="DERBY"/-->
