@@ -1,7 +1,6 @@
 package cz.cvut.x33eja.gowalla.model.spot;
 
 import cz.cvut.x33eja.gowalla.model.Location;
-import cz.cvut.x33eja.gowalla.model.person.Person;
 import java.util.List;
 import javax.ejb.Local;
 

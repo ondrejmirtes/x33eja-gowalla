@@ -24,15 +24,28 @@ import javax.persistence.OneToOne;
 public class Person extends SimpleEntity {
 
 	private String nick;
+
 	private String name;
+
 	private double latitude;
+
 	private double longitude;
+
 	@OneToOne(cascade={CascadeType.PERSIST})
 	private OAuth oAuth;
+
 	@OneToOne(cascade={CascadeType.PERSIST})
 	private Collection collection;
+
+	/**
+	 * Items "in pack"
+	 */
 	@OneToMany(cascade={CascadeType.PERSIST}, mappedBy="person")
 	private List<Item> items = new ArrayList<Item>();
+
+	/**
+	 * Items in vault
+	 */
 	@ManyToMany(cascade={CascadeType.PERSIST})
 	private List<ItemType> followedTypes = new ArrayList<ItemType>();
 
