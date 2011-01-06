@@ -9,7 +9,7 @@
   </persistence-unit>
   <persistence-unit name="gowalla-testPU" transaction-type="RESOURCE_LOCAL">
     <class>cz.cvut.x33eja.gowalla.model.Location</class>
-    <class>cz.cvut.x33eja.gowalla.model.OAuth</class>
+    <class>cz.cvut.x33eja.gowalla.model.oauth.OAuth</class>
     <class>cz.cvut.x33eja.gowalla.model.person.Person</class>
     <class>cz.cvut.x33eja.gowalla.model.item.Item</class>
     <class>cz.cvut.x33eja.gowalla.model.item.ItemType</class>
