@@ -31,4 +31,5 @@
         <property name="driverClass" value="org.apache.derby.jdbc.ClientDriver"/>
     </jdbc-connection-pool>
     <jdbc-resource enabled="true" jndi-name="gowalla3" object-type="user" pool-name="derby_net_gowalla2_gowallaPool"/>
+    <jdbc-resource enabled="true" jndi-name="gowalla4" object-type="user" pool-name="derby_net_gowalla_gowallaPool"/>
 </resources>
