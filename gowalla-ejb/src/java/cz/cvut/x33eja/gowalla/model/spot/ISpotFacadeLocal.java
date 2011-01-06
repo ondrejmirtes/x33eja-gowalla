@@ -31,7 +31,7 @@ public interface ISpotFacadeLocal {
 
     void remove(Spot spot);
 
-    Person find(Object id);
+    Spot find(Object id);
 
     List<Spot> findAll();
 

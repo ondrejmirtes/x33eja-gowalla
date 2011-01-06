@@ -29,11 +29,11 @@ public interface ICollectionFacadeLocal {
 
     void remove(Collection collection);
 
-    Person find(Object id);
+    Collection find(Object id);
 
-    List<Person> findAll();
+    List<Collection> findAll();
 
-    List<Person> findRange(int[] range);
+    List<Collection> findRange(int[] range);
 
     int count();
 

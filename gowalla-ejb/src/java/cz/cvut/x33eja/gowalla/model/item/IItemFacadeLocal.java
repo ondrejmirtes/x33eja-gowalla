@@ -23,7 +23,7 @@ public interface IItemFacadeLocal {
 
     void remove(Item item);
 
-    Person find(Object id);
+    Item find(Object id);
 
     List<Item> findAll();
 

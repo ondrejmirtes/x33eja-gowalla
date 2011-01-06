@@ -40,11 +40,11 @@ public interface IItemTypeFacadeLocal {
 
     void remove(ItemType itemType);
 
-    Person find(Object id);
+    ItemType find(Object id);
 
-    List<Person> findAll();
+    List<ItemType> findAll();
 
-    List<Person> findRange(int[] range);
+    List<ItemType> findRange(int[] range);
 
     int count();
 	

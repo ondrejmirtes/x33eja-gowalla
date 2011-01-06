@@ -23,11 +23,11 @@ public interface IOAuthFacadeLocal {
 
     void remove(OAuth oAuth);
 
-    Person find(Object id);
+    OAuth find(Object id);
 
-    List<Person> findAll();
+    List<OAuth> findAll();
 
-    List<Person> findRange(int[] range);
+    List<OAuth> findRange(int[] range);
 
     int count();
 
