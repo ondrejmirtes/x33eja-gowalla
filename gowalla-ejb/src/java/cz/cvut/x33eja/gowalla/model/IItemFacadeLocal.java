@@ -24,9 +24,9 @@ public interface IItemFacadeLocal {
 
     Person find(Object id);
 
-    List<Person> findAll();
+    List<Item> findAll();
 
-    List<Person> findRange(int[] range);
+    List<Item> findRange(int[] range);
 
     int count();
 

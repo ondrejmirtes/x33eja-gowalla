@@ -31,9 +31,9 @@ public interface ISpotFacadeLocal {
 
     Person find(Object id);
 
-    List<Person> findAll();
+    List<Spot> findAll();
 
-    List<Person> findRange(int[] range);
+    List<Spot> findRange(int[] range);
 
     int count();
 
