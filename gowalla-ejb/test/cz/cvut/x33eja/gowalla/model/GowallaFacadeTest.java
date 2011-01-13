@@ -32,6 +32,8 @@ public class GowallaFacadeTest extends EntityManagerTestCase {
 
 	private ItemTypeFacade itemTypeFacade;
 
+	public static final String AUTH_KEY = "fd47346444c9563bffea9af27a1b92e0";
+
 	////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////
@@ -51,6 +53,7 @@ public class GowallaFacadeTest extends EntityManagerTestCase {
 		itemTypeFacade.setEntityManager(em);
 
 		gowalla = new GowallaFacade();
+		gowalla.setAuthKey(AUTH_KEY);
 		gowalla.setPersonFacade(personFacade);
 		gowalla.setSpotFacade(spotFacade);
 		gowalla.setItemFacade(itemFacade);

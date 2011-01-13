@@ -29,6 +29,8 @@ public class GowallaFacade implements IGowallaFacadeLocal {
 
 	Gowalla gowalla;
 
+	String authKey;
+
 	@Inject
 	PersonFacade personFacade;
 
@@ -41,13 +43,20 @@ public class GowallaFacade implements IGowallaFacadeLocal {
 	@Inject
 	SpotFacade spotFacade;
 
-	public static final String UNIT_TEST_API_KEY = "2c25a80e43114d0b8e290c0c98d74756";
+	public static final String API_KEY = "2c25a80e43114d0b8e290c0c98d74756";
 	public static final String SECRET_KEY = "7e57ed5b2dad4aa6b869e08044177e43";
-	public static final String AUTH_KEY = "fd47346444c9563bffea9af27a1b92e0";
 
 	////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////
+
+	public String getAuthKey() {
+		return authKey;
+	}
+
+	public void setAuthKey(String authKey) {
+		this.authKey = authKey;
+	}
 
 	public ItemFacade getItemFacade() {
 		return itemFacade;
@@ -91,9 +100,9 @@ public class GowallaFacade implements IGowallaFacadeLocal {
 
 	private void initGowalla() {
 		try {
-			com.ginsberg.gowalla.oauth.OAuth oauth = new com.ginsberg.gowalla.oauth.OAuth(UNIT_TEST_API_KEY, SECRET_KEY, "http://localhost/");
-			com.ginsberg.gowalla.dto.oauth.OAuthAccessTokenResponse token = oauth.requestAccessToken(com.ginsberg.gowalla.oauth.OAuth.Scope.READ_WRITE, AUTH_KEY);
-			gowalla = new Gowalla("UnitTests", UNIT_TEST_API_KEY, new com.ginsberg.gowalla.auth.OAuth2Authentication(token.getAccessToken()));
+			com.ginsberg.gowalla.oauth.OAuth oauth = new com.ginsberg.gowalla.oauth.OAuth(API_KEY, SECRET_KEY, "http://localhost/");
+			com.ginsberg.gowalla.dto.oauth.OAuthAccessTokenResponse token = oauth.requestAccessToken(com.ginsberg.gowalla.oauth.OAuth.Scope.READ_WRITE, authKey);
+			gowalla = new Gowalla("UnitTests", API_KEY, new com.ginsberg.gowalla.auth.OAuth2Authentication(token.getAccessToken()));
 			gowalla.setRateLimiter(new com.ginsberg.gowalla.rate.RequestsOverTime(5));
 		} catch (GowallaRequestException ex) {
 			Logger.getLogger(GowallaFacade.class.getName()).log(Level.SEVERE, null, ex);
@@ -144,6 +153,20 @@ public class GowallaFacade implements IGowallaFacadeLocal {
 		}
 	}
 
+	@Override
+	public void updateNearestSpots(Location location, Integer count) {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
+
+	@Override
+	public boolean hasPersonThisItemType(Person person, ItemType itemType) {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
+
+	////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////
+
 	private Item getItem(com.ginsberg.gowalla.dto.Item gowallaItem) {
 		Long id = new Long(gowallaItem.getId());
 		Item item = itemFacade.find(id);
@@ -166,16 +189,6 @@ public class GowallaFacade implements IGowallaFacadeLocal {
 		}
 
 		return itemType;
-	}
-
-	@Override
-	public void updateNearestSpots(Location location, Integer count) {
-		throw new UnsupportedOperationException("Not supported yet.");
-	}
-
-	@Override
-	public boolean hasPersonThisItemType(Person person, ItemType itemType) {
-		throw new UnsupportedOperationException("Not supported yet.");
 	}
 	
 }
