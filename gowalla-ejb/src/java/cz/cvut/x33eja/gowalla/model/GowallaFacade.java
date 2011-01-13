@@ -176,17 +176,15 @@ public class GowallaFacade implements IGowallaFacadeLocal {
 	public List<ItemType> getMissingItemTypes(Person person) {
 		List<ItemType> results = new ArrayList<ItemType>();
 		try {
-			List<com.ginsberg.gowalla.dto.Item> list = gowalla.getItemsForUser((int)(long) person.getId(), ItemContext.MISSING);
-			for (com.ginsberg.gowalla.dto.Item iItem : list) {
-				ItemType itemType = getItemType(iItem);
-				results.add(itemType);
-			}
+			results = processItems(gowalla.getItemsForUser((int)(long) person.getId(), ItemContext.MISSING));
 		} catch (GowallaException ex) {
 			Logger.getLogger(GowallaFacade.class.getName()).log(Level.SEVERE, null, ex);
 		}
 
 		return results;
 	}
+
+
 
 	////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////
@@ -214,6 +212,15 @@ public class GowallaFacade implements IGowallaFacadeLocal {
 		}
 
 		return itemType;
+	}
+
+	private List<ItemType> processItems(List<com.ginsberg.gowalla.dto.Item> gowallaItems) {
+		List<ItemType> results = new ArrayList<ItemType>();
+		for (com.ginsberg.gowalla.dto.Item iItem : gowallaItems) {
+			ItemType itemType = getItemType(iItem);
+			results.add(itemType);
+		}
+		return results;
 	}
 
 	private Spot getSpot(com.ginsberg.gowalla.dto.SimpleSpot gowallaSpot) {
