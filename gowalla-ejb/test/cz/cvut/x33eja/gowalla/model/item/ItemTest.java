@@ -28,9 +28,13 @@ public class ItemTest {
 
 	@Test
 	public void testPerson() {
+		Spot s = new Spot();
 		Person p = new Person();
+		item.setSpot(s);
 		item.setPerson(p);
 		assertEquals(p, item.getPerson());
+		assertNull(item.getSpot());
+		assertNull(item.getCollection());
 	}
 
 	@Test
@@ -38,6 +42,8 @@ public class ItemTest {
 		Collection c = new Collection();
 		item.setCollection(c);
 		assertEquals(c, item.getCollection());
+		assertNull(item.getSpot());
+		assertNull(item.getPerson());
 	}
 
 	@Test
@@ -45,6 +51,8 @@ public class ItemTest {
 		Spot s = new Spot();
 		item.setSpot(s);
 		assertEquals(s, item.getSpot());
+		assertNull(item.getPerson());
+		assertNull(item.getCollection());
 	}
 
 	@Test

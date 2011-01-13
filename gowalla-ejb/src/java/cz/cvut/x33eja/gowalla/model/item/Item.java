@@ -41,6 +41,7 @@ public class Item extends SimpleEntity {
 	}
 
 	public void setPerson(Person person) {
+		resetPlacement();
 		this.person = person;
 	}
 
@@ -49,6 +50,7 @@ public class Item extends SimpleEntity {
 	}
 
 	public void setCollection(Collection collection) {
+		resetPlacement();
 		this.collection = collection;
 	}
 
@@ -57,6 +59,7 @@ public class Item extends SimpleEntity {
 	}
 
 	public void setSpot(Spot spot) {
+		resetPlacement();
 		this.spot = spot;
 	}
 
@@ -66,5 +69,15 @@ public class Item extends SimpleEntity {
 
 	public void setItemType(ItemType itemType) {
 		this.itemType = itemType;
+	}
+
+	////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////
+
+	private void resetPlacement() {
+		this.spot = null;
+		this.collection = null;
+		this.person = null;
 	}
 }
