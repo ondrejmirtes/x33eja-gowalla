@@ -12,12 +12,12 @@ import java.util.logging.Logger;
 import javax.ejb.Stateful;
 import com.ginsberg.gowalla.Gowalla;
 import com.ginsberg.gowalla.dto.GeoPoint;
+import cz.cvut.x33eja.gowalla.model.item.ItemFacade;
 import cz.cvut.x33eja.gowalla.model.item.ItemTypeFacade;
 import cz.cvut.x33eja.gowalla.model.spot.SpotFacade;
 import java.util.List;
 import java.util.HashMap;
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
 
 
 /**
@@ -33,6 +33,9 @@ public class GowallaFacade implements IGowallaFacadeLocal {
 	PersonFacade personFacade;
 
 	@Inject
+	ItemFacade itemFacade;
+
+	@Inject
 	ItemTypeFacade itemTypeFacade;
 
 	@Inject
@@ -45,6 +48,14 @@ public class GowallaFacade implements IGowallaFacadeLocal {
 	////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////
+
+	public ItemFacade getItemFacade() {
+		return itemFacade;
+	}
+
+	public void setItemFacade(ItemFacade itemFacade) {
+		this.itemFacade = itemFacade;
+	}
 
 	public ItemTypeFacade getItemTypeFacade() {
 		return itemTypeFacade;
@@ -123,9 +134,7 @@ public class GowallaFacade implements IGowallaFacadeLocal {
 			}
 
 			for (com.ginsberg.gowalla.dto.Item iItem : newItemsList) { // add new items
-				Item newItem = new Item();
-				newItem.setId(Long.valueOf(iItem.getId()));
-				newItem.setItemType(getItemType(iItem));
+				Item newItem = getItem(iItem);
 				spot.addItem(newItem);
 			}
 
@@ -135,12 +144,24 @@ public class GowallaFacade implements IGowallaFacadeLocal {
 		}
 	}
 
-	private ItemType getItemType(com.ginsberg.gowalla.dto.Item item) {
-		ItemType itemType = itemTypeFacade.findByName(item.getName());
+	private Item getItem(com.ginsberg.gowalla.dto.Item gowallaItem) {
+		Long id = new Long(gowallaItem.getId());
+		Item item = itemFacade.find(id);
+		if (item == null) {
+			item = new Item();
+			item.setId(id);
+			item.setItemType(getItemType(gowallaItem));
+		}
+
+		return item;
+	}
+
+	private ItemType getItemType(com.ginsberg.gowalla.dto.Item gowallaItem) {
+		ItemType itemType = itemTypeFacade.findByName(gowallaItem.getName());
 		if (itemType == null) {
 			itemType = new ItemType();
-			itemType.setName(item.getName());
-			itemType.setImage(new Image(item.getImageUrl()));
+			itemType.setName(gowallaItem.getName());
+			itemType.setImage(new Image(gowallaItem.getImageUrl()));
 			itemTypeFacade.create(itemType);
 		}
 
