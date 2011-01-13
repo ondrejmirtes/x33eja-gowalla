@@ -39,7 +39,7 @@ public class ItemTypeFacade extends AbstractFacade<ItemType> implements IItemTyp
 
 	@Override
 	public ItemType findByName(String name) {
-		Query q = em.createQuery("SELECT i FROM " + ItemType.class.getName() + " WHERE name = :name");
+		Query q = em.createQuery("SELECT i FROM ItemType i WHERE i.name = :name");
 		q.setParameter("name", name);
 		try {
 			return (ItemType) q.getSingleResult();
