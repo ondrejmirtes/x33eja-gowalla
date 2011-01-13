@@ -147,8 +147,7 @@ public class GowallaFacade implements IGowallaFacadeLocal {
 				if (!newItems.containsKey(id)) {
 					spot.removeItem(iItem); // remove items which are no longer present
 				}
-
-				newItemsList.remove(id);
+				newItems.remove(id);
 			}
 
 			for (com.ginsberg.gowalla.dto.Item iItem : newItemsList) { // add new items
