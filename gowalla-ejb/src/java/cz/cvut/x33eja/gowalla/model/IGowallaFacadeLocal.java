@@ -52,4 +52,11 @@ public interface IGowallaFacadeLocal {
 	 */
 	List<ItemType> getCollectionItemTypes(Person person);
 
+	/**
+	 * Update list of ItemTypes
+	 *
+	 * @param person
+	 */
+	void updateItemTypes(Person person);
+
 }
