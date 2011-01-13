@@ -44,12 +44,21 @@ public class GowallaFacade implements IGowallaFacadeLocal {
 
 	public static final String API_KEY = "2c25a80e43114d0b8e290c0c98d74756";
 	public static final String SECRET_KEY = "7e57ed5b2dad4aa6b869e08044177e43";
+	public static final String CALLBACK_URL = "http://localhost:8080/gowalla-war/oauth-redirect";
 
 	private static final int SPOT_RADIUS = 50;
 
 	////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////
+
+	protected Gowalla getGowalla() {
+		if (gowalla == null) {
+			initGowalla();
+		}
+		
+		return gowalla;
+	}
 
 	public String getAuthKey() {
 		return authKey;
@@ -95,13 +104,12 @@ public class GowallaFacade implements IGowallaFacadeLocal {
 	////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////
 
-	public GowallaFacade() {
-		initGowalla();
-	}
-
 	private void initGowalla() {
+		if (authKey == null) {
+			throw new IllegalStateException("You must set the Auth Key first");
+		}
 		try {
-			com.ginsberg.gowalla.oauth.OAuth oauth = new com.ginsberg.gowalla.oauth.OAuth(API_KEY, SECRET_KEY, "http://localhost/");
+			com.ginsberg.gowalla.oauth.OAuth oauth = new com.ginsberg.gowalla.oauth.OAuth(API_KEY, SECRET_KEY, CALLBACK_URL);
 			com.ginsberg.gowalla.dto.oauth.OAuthAccessTokenResponse token = oauth.requestAccessToken(com.ginsberg.gowalla.oauth.OAuth.Scope.READ_WRITE, authKey);
 			gowalla = new Gowalla("UnitTests", API_KEY, new com.ginsberg.gowalla.auth.OAuth2Authentication(token.getAccessToken()));
 			gowalla.setRateLimiter(new com.ginsberg.gowalla.rate.RequestsOverTime(5));
@@ -116,7 +124,7 @@ public class GowallaFacade implements IGowallaFacadeLocal {
 	@Override
 	public void updatePersonLocation(Person person) {
 		try {
-			GeoPoint point = gowalla.getSpot(gowalla.getUser().getLastCheckin().getSpot().getId()).getGeoLocation();
+			GeoPoint point = getGowalla().getSpot(getGowalla().getUser().getLastCheckin().getSpot().getId()).getGeoLocation();
 			Location location = new Location(point.getLatitude().doubleValue(), point.getLongitude().doubleValue());
 			person.setLocation(location);
 			personFacade.edit(person);
@@ -128,7 +136,7 @@ public class GowallaFacade implements IGowallaFacadeLocal {
 	@Override
 	public void updateSpotItems(Spot spot) {
 		try {
-			List<com.ginsberg.gowalla.dto.Item> newItemsList = gowalla.getItemsAtSpot(spot.getId().intValue());
+			List<com.ginsberg.gowalla.dto.Item> newItemsList = getGowalla().getItemsAtSpot(spot.getId().intValue());
 			HashMap<Integer, com.ginsberg.gowalla.dto.Item> newItems = new HashMap<Integer, com.ginsberg.gowalla.dto.Item>();
 			for (com.ginsberg.gowalla.dto.Item iItem : newItemsList) {
 				newItems.put(iItem.getId(), iItem);
@@ -162,7 +170,7 @@ public class GowallaFacade implements IGowallaFacadeLocal {
 	public void updateNearestSpots(Location location, Integer radius) {
 		try {
 			GeoPoint point = new GeoPoint(location.getLatitude(), location.getLongitude());
-			List<com.ginsberg.gowalla.dto.SimpleSpot> list = gowalla.findSpotsNear(point, radius);
+			List<com.ginsberg.gowalla.dto.SimpleSpot> list = getGowalla().findSpotsNear(point, radius);
 			for (com.ginsberg.gowalla.dto.SimpleSpot iSpot : list) {
 				Spot spot = getSpot(iSpot);
 				updateSpotItems(spot);
@@ -176,7 +184,7 @@ public class GowallaFacade implements IGowallaFacadeLocal {
 	public List<ItemType> getMissingItemTypes(Person person) {
 		List<ItemType> results = new ArrayList<ItemType>();
 		try {
-			results = processItems(gowalla.getItemsForUser((int)(long) person.getId(), ItemContext.MISSING));
+			results = processItems(getGowalla().getItemsForUser((int)(long) person.getId(), ItemContext.MISSING));
 		} catch (GowallaException ex) {
 			Logger.getLogger(GowallaFacade.class.getName()).log(Level.SEVERE, null, ex);
 		}
@@ -188,7 +196,7 @@ public class GowallaFacade implements IGowallaFacadeLocal {
 	public List<ItemType> getCollectionItemTypes(Person person) {
 		List<ItemType> results = new ArrayList<ItemType>();
 		try {
-			results = processItems(gowalla.getItemsForUser((int)(long) person.getId(), ItemContext.VAULT));
+			results = processItems(getGowalla().getItemsForUser((int)(long) person.getId(), ItemContext.VAULT));
 		} catch (GowallaException ex) {
 			Logger.getLogger(GowallaFacade.class.getName()).log(Level.SEVERE, null, ex);
 		}
