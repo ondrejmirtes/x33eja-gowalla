@@ -1,8 +1,10 @@
 package cz.cvut.x33eja.gowalla.model;
 
 import cz.cvut.x33eja.gowalla.model.item.ItemType;
-import cz.cvut.x33eja.gowalla.model.spot.Spot;
 import cz.cvut.x33eja.gowalla.model.person.Person;
+import cz.cvut.x33eja.gowalla.model.spot.Spot;
+
+import java.util.List;
 import javax.ejb.Local;
 
 /**
@@ -41,6 +43,6 @@ public interface IGowallaFacadeLocal {
 	 * @param itemType
 	 * @return
 	 */
-	boolean hasPersonThisItemType(Person person, ItemType itemType);
+	List<ItemType> getMissingItemTypes(Person person);
 
 }

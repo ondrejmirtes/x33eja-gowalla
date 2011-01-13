@@ -1,20 +1,22 @@
 package cz.cvut.x33eja.gowalla.model;
 
+import com.ginsberg.gowalla.dto.GeoPoint;
+import com.ginsberg.gowalla.exception.GowallaException;
+import com.ginsberg.gowalla.exception.GowallaRequestException;
+import com.ginsberg.gowalla.Gowalla;
+import com.ginsberg.gowalla.ItemContext;
+
+import cz.cvut.x33eja.gowalla.model.item.*;
+import cz.cvut.x33eja.gowalla.model.person.*;
+import cz.cvut.x33eja.gowalla.model.spot.*;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.HashMap;
 import javax.ejb.Stateful;
 import javax.inject.Inject;
-
-import com.ginsberg.gowalla.dto.GeoPoint;
-import com.ginsberg.gowalla.exception.GowallaException;
-import com.ginsberg.gowalla.exception.GowallaRequestException;
-import com.ginsberg.gowalla.Gowalla;
-
-import cz.cvut.x33eja.gowalla.model.item.*;
-import cz.cvut.x33eja.gowalla.model.person.*;
-import cz.cvut.x33eja.gowalla.model.spot.*;
 
 
 /**
@@ -171,8 +173,19 @@ public class GowallaFacade implements IGowallaFacadeLocal {
 	}
 
 	@Override
-	public boolean hasPersonThisItemType(Person person, ItemType itemType) {
-		throw new UnsupportedOperationException("Not supported yet.");
+	public List<ItemType> getMissingItemTypes(Person person) {
+		List<ItemType> results = new ArrayList<ItemType>();
+		try {
+			List<com.ginsberg.gowalla.dto.Item> list = gowalla.getItemsForUser((int)(long) person.getId(), ItemContext.MISSING);
+			for (com.ginsberg.gowalla.dto.Item iItem : list) {
+				ItemType itemType = getItemType(iItem);
+				results.add(itemType);
+			}
+		} catch (GowallaException ex) {
+			Logger.getLogger(GowallaFacade.class.getName()).log(Level.SEVERE, null, ex);
+		}
+
+		return results;
 	}
 
 	////////////////////////////////////////////////////////////////////////////
