@@ -48,6 +48,8 @@ public class GowallaFacade implements IGowallaFacadeLocal {
 	public static final String API_KEY = "2c25a80e43114d0b8e290c0c98d74756";
 	public static final String SECRET_KEY = "7e57ed5b2dad4aa6b869e08044177e43";
 
+	private static final int SPOT_RADIUS = 50;
+
 	////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////
@@ -155,9 +157,22 @@ public class GowallaFacade implements IGowallaFacadeLocal {
 		}
 	}
 
+	public void updateNearestSpots(Location location) {
+		updateNearestSpots(location, SPOT_RADIUS);
+	}
+
 	@Override
-	public void updateNearestSpots(Location location, Integer count) {
-		throw new UnsupportedOperationException("Not supported yet.");
+	public void updateNearestSpots(Location location, Integer radius) {
+		try {
+			GeoPoint point = new GeoPoint(location.getLatitude(), location.getLongitude());
+			List<com.ginsberg.gowalla.dto.SimpleSpot> list = gowalla.findSpotsNear(point, radius);
+			for (com.ginsberg.gowalla.dto.SimpleSpot iSpot : list) {
+				Spot spot = getSpot(iSpot);
+				updateSpotItems(spot);
+			}
+		} catch (GowallaException ex) {
+			Logger.getLogger(GowallaFacade.class.getName()).log(Level.SEVERE, null, ex);
+		}
 	}
 
 	@Override
@@ -191,6 +206,22 @@ public class GowallaFacade implements IGowallaFacadeLocal {
 		}
 
 		return itemType;
+	}
+
+	private Spot getSpot(com.ginsberg.gowalla.dto.SimpleSpot gowallaSpot) {
+		Long id = new Long(gowallaSpot.getId());
+		Spot spot = spotFacade.find(id);
+		if (spot == null) {
+			spot = new Spot();
+			spot.setId(id);
+			spot.setName(gowallaSpot.getName());
+			Location location = new Location(Double.valueOf(gowallaSpot.getLat()), Double.valueOf(gowallaSpot.getLng()));
+			spot.setLocation(location);
+			spot.setImage(new Image(gowallaSpot.getImageUrl()));
+			spotFacade.create(spot);
+		}
+
+		return spot;
 	}
 	
 }
