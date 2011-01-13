@@ -7,6 +7,7 @@ package cz.cvut.x33eja.gowalla;
 
 import com.ocpsoft.pretty.faces.annotation.URLAction;
 import com.ocpsoft.pretty.faces.annotation.URLMapping;
+import cz.cvut.x33eja.gowalla.model.GowallaFacade;
 import java.io.IOException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
