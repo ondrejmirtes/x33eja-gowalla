@@ -25,7 +25,7 @@ public class IndexBean {
 
 	@URLAction
 	public void test() {
-		System.out.println("GOWALLA INDEX");
+		
 	}
 
 }

@@ -7,11 +7,11 @@ package cz.cvut.x33eja.gowalla;
 
 import com.ocpsoft.pretty.faces.annotation.URLAction;
 import com.ocpsoft.pretty.faces.annotation.URLMapping;
+import com.ocpsoft.pretty.faces.annotation.URLQueryParameter;
 import cz.cvut.x33eja.gowalla.model.GowallaFacade;
 import java.io.IOException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
 import javax.ws.rs.core.UriBuilder;
 
 /**
@@ -20,20 +20,34 @@ import javax.ws.rs.core.UriBuilder;
  */
 @ManagedBean
 @RequestScoped
-@URLMapping(id="oauthNew", pattern="/oauthh", viewId="/oauth.xhtml")
-public class OAuthNewBean {
+@URLMapping(id="oauth", pattern="/oauth-redirect", viewId="/oauth.xhtml")
+public class OAuthBean {
 
-    /** Creates a new instance of OAuthNewBean */
-    public OAuthNewBean() {
+	@URLQueryParameter("code")
+	private String code;
+
+    /** Creates a new instance of OAuthBean */
+    public OAuthBean() {
     }
 
-	@URLAction
-	public void newAuth() throws IOException {
-		System.out.println("GOWALLA OAUTH NEW");
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public String getRedirect() {
 		UriBuilder builder = UriBuilder.fromUri("https://gowalla.com/api/oauth/new");
 		builder.queryParam("redirect_uri", "http://localhost:8080/gowalla-war/oauth-redirect");
 		builder.queryParam("client_id", GowallaFacade.API_KEY);
-		FacesContext.getCurrentInstance().getExternalContext().redirect(builder.toString());
+		return builder.build().toString();
+	}
+
+	@URLAction
+	public void login() {
+		
 	}
 
 }

@@ -8,8 +8,6 @@
     </h:head>
     <h:body>
         Hello from Facelets
-		<pretty:link mappingId="oauthNew">
-			OAuth login
-		</pretty:link>
+		<a href="#{oAuthBean.redirect}">OAuth login</a>
     </h:body>
 </html>
