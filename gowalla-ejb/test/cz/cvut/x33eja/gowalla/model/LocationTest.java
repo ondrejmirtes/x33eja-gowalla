@@ -16,6 +16,7 @@ public class LocationTest {
 		assertEquals(17.859, loc.getLongitude(), 0);
 	}
 
+	@Test
 	public void testEquals() {
 		Location loc1 = new Location(10.5689, 41.7835);
 		Location loc2 = new Location(13.245, 75.222);

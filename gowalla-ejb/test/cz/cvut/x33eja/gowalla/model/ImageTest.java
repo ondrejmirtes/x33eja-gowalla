@@ -13,9 +13,6 @@ public class ImageTest {
 	public void testUrl() {
 		Image im = new Image("http://localhost/test.jpg");
 		assertEquals("http://localhost/test.jpg", im.getUrl());
-
-		im.setUrl("http://localhost/another.jpg");
-		assertEquals("http://localhost/another.jpg", im.getUrl());
 	}
 
 }
