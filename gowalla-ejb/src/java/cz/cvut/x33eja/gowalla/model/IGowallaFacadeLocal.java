@@ -37,12 +37,19 @@ public interface IGowallaFacadeLocal {
 	void updateNearestSpots(Location location, Integer count);
 
 	/**
-	 * Checks in API if user has this ItemType in his collection
+	 * List ItemTypes which has this user not in his collection
 	 *
 	 * @param person
-	 * @param itemType
 	 * @return
 	 */
 	List<ItemType> getMissingItemTypes(Person person);
+
+	/**
+	 * List ItemTypes which has this user in his collection
+	 *
+	 * @param person
+	 * @return
+	 */
+	List<ItemType> getCollectionItemTypes(Person person);
 
 }

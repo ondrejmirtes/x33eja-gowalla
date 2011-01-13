@@ -184,7 +184,17 @@ public class GowallaFacade implements IGowallaFacadeLocal {
 		return results;
 	}
 
+	@Override
+	public List<ItemType> getCollectionItemTypes(Person person) {
+		List<ItemType> results = new ArrayList<ItemType>();
+		try {
+			results = processItems(gowalla.getItemsForUser((int)(long) person.getId(), ItemContext.VAULT));
+		} catch (GowallaException ex) {
+			Logger.getLogger(GowallaFacade.class.getName()).log(Level.SEVERE, null, ex);
+		}
 
+		return results;
+	}
 
 	////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////
