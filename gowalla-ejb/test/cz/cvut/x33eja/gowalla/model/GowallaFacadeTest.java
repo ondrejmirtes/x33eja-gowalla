@@ -36,6 +36,9 @@ public class GowallaFacadeTest extends EntityManagerTestCase {
 		personFacade.create(person);
 
 		gowalla.updatePersonLocation(person);
+
+		assertNotNull(person.getLocation().getLatitude());
+		assertNotNull(person.getLocation().getLongitude());
 	}
 
 }
