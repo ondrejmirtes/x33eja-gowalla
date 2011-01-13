@@ -2,8 +2,7 @@ package cz.cvut.x33eja.gowalla.model;
 
 import com.ginsberg.gowalla.exception.GowallaException;
 import com.ginsberg.gowalla.exception.GowallaRequestException;
-import cz.cvut.x33eja.gowalla.model.item.Item;
-import cz.cvut.x33eja.gowalla.model.item.ItemType;
+import cz.cvut.x33eja.gowalla.model.item.*;
 import cz.cvut.x33eja.gowalla.model.person.Person;
 import cz.cvut.x33eja.gowalla.model.person.PersonFacade;
 import cz.cvut.x33eja.gowalla.model.spot.Spot;
@@ -12,8 +11,11 @@ import java.util.logging.Logger;
 import javax.ejb.Stateful;
 import com.ginsberg.gowalla.Gowalla;
 import com.ginsberg.gowalla.dto.GeoPoint;
+import cz.cvut.x33eja.gowalla.model.item.IItemTypeFacadeLocal;
 import cz.cvut.x33eja.gowalla.model.item.ItemFacade;
 import cz.cvut.x33eja.gowalla.model.item.ItemTypeFacade;
+import cz.cvut.x33eja.gowalla.model.person.IPersonFacadeLocal;
+import cz.cvut.x33eja.gowalla.model.spot.ISpotFacadeLocal;
 import cz.cvut.x33eja.gowalla.model.spot.SpotFacade;
 import java.util.List;
 import java.util.HashMap;
@@ -32,16 +34,16 @@ public class GowallaFacade implements IGowallaFacadeLocal {
 	String authKey;
 
 	@Inject
-	PersonFacade personFacade;
+	IPersonFacadeLocal personFacade;
 
 	@Inject
-	ItemFacade itemFacade;
+	IItemFacadeLocal itemFacade;
 
 	@Inject
-	ItemTypeFacade itemTypeFacade;
+	IItemTypeFacadeLocal itemTypeFacade;
 
 	@Inject
-	SpotFacade spotFacade;
+	ISpotFacadeLocal spotFacade;
 
 	public static final String API_KEY = "2c25a80e43114d0b8e290c0c98d74756";
 	public static final String SECRET_KEY = "7e57ed5b2dad4aa6b869e08044177e43";
@@ -58,7 +60,7 @@ public class GowallaFacade implements IGowallaFacadeLocal {
 		this.authKey = authKey;
 	}
 
-	public ItemFacade getItemFacade() {
+	public IItemFacadeLocal getItemFacade() {
 		return itemFacade;
 	}
 
@@ -66,7 +68,7 @@ public class GowallaFacade implements IGowallaFacadeLocal {
 		this.itemFacade = itemFacade;
 	}
 
-	public ItemTypeFacade getItemTypeFacade() {
+	public IItemTypeFacadeLocal getItemTypeFacade() {
 		return itemTypeFacade;
 	}
 
@@ -74,7 +76,7 @@ public class GowallaFacade implements IGowallaFacadeLocal {
 		this.itemTypeFacade = itemTypeFacade;
 	}
 
-	public PersonFacade getPersonFacade() {
+	public IPersonFacadeLocal getPersonFacade() {
 		return personFacade;
 	}
 
@@ -82,7 +84,7 @@ public class GowallaFacade implements IGowallaFacadeLocal {
 		this.personFacade = personFacade;
 	}
 
-	public SpotFacade getSpotFacade() {
+	public ISpotFacadeLocal getSpotFacade() {
 		return spotFacade;
 	}
 
