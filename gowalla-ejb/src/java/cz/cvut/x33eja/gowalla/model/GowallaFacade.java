@@ -1,25 +1,20 @@
 package cz.cvut.x33eja.gowalla.model;
 
-import com.ginsberg.gowalla.exception.GowallaException;
-import com.ginsberg.gowalla.exception.GowallaRequestException;
-import cz.cvut.x33eja.gowalla.model.item.*;
-import cz.cvut.x33eja.gowalla.model.person.Person;
-import cz.cvut.x33eja.gowalla.model.person.PersonFacade;
-import cz.cvut.x33eja.gowalla.model.spot.Spot;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.ejb.Stateful;
-import com.ginsberg.gowalla.Gowalla;
-import com.ginsberg.gowalla.dto.GeoPoint;
-import cz.cvut.x33eja.gowalla.model.item.IItemTypeFacadeLocal;
-import cz.cvut.x33eja.gowalla.model.item.ItemFacade;
-import cz.cvut.x33eja.gowalla.model.item.ItemTypeFacade;
-import cz.cvut.x33eja.gowalla.model.person.IPersonFacadeLocal;
-import cz.cvut.x33eja.gowalla.model.spot.ISpotFacadeLocal;
-import cz.cvut.x33eja.gowalla.model.spot.SpotFacade;
-import java.util.List;
 import java.util.HashMap;
+import javax.ejb.Stateful;
 import javax.inject.Inject;
+
+import com.ginsberg.gowalla.dto.GeoPoint;
+import com.ginsberg.gowalla.exception.GowallaException;
+import com.ginsberg.gowalla.exception.GowallaRequestException;
+import com.ginsberg.gowalla.Gowalla;
+
+import cz.cvut.x33eja.gowalla.model.item.*;
+import cz.cvut.x33eja.gowalla.model.person.*;
+import cz.cvut.x33eja.gowalla.model.spot.*;
 
 
 /**
