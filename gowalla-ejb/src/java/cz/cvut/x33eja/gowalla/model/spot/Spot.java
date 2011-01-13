@@ -59,6 +59,7 @@ public class Spot extends SimpleEntity {
 
 	public void addItem(Item item) {
 		items.add(item);
+		item.setSpot(this);
 	}
 
 	public void removeItem(Item item) {
