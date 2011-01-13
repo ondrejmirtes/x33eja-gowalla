@@ -2,6 +2,7 @@ package cz.cvut.x33eja.gowalla.model;
 
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 /**
  *
@@ -11,11 +12,24 @@ public abstract class AbstractFacade<T> {
 
 	private Class<T> entityClass;
 
+	@PersistenceContext(unitName = "gowalla-ejbPU")
+	protected EntityManager em;
+
+	////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////
+
 	public AbstractFacade(Class<T> entityClass) {
 		this.entityClass = entityClass;
 	}
 
-	protected abstract EntityManager getEntityManager();
+	protected EntityManager getEntityManager() {
+		return em;
+	}
+
+	protected void setEntityManager(EntityManager em) {
+		this.em = em;
+	}
 
 	////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////
