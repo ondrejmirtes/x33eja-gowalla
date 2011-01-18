@@ -5,12 +5,10 @@
 
 package cz.cvut.x33eja.gowalla.model;
 
-import cz.cvut.x33eja.gowalla.model.item.ItemFacade;
-import cz.cvut.x33eja.gowalla.model.item.ItemTypeFacade;
-import cz.cvut.x33eja.gowalla.model.spot.Spot;
-import cz.cvut.x33eja.gowalla.model.spot.SpotFacade;
-import cz.cvut.x33eja.gowalla.model.person.PersonFacade;
-import cz.cvut.x33eja.gowalla.model.person.Person;
+import cz.cvut.x33eja.gowalla.model.item.*;
+import cz.cvut.x33eja.gowalla.model.spot.*;
+import cz.cvut.x33eja.gowalla.model.person.*;
+import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -32,7 +30,11 @@ public class GowallaFacadeTest extends EntityManagerTestCase {
 
 	private ItemTypeFacade itemTypeFacade;
 
-	public static final String AUTH_KEY = "fd47346444c9563bffea9af27a1b92e0";
+	private static final String AUTH_KEY = "fd47346444c9563bffea9af27a1b92e0";
+
+	private static long spoIdCVUT = 4085165L;
+
+	private static long personIdOndra = 230916L;
 
 	////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////
@@ -73,17 +75,62 @@ public class GowallaFacadeTest extends EntityManagerTestCase {
 
 	@Test
 	public void testUpdateSpotItems() throws Exception {
-		long id = 4085165L;
-		Spot spot = spotFacade.find(id);
+		Spot spot = spotFacade.find(spoIdCVUT);
 		if (spot == null) {
 			spot = new Spot();
-			spot.setId(id);
+			spot.setId(spoIdCVUT);
 			spotFacade.create(spot);
 		}
 
 		gowalla.updateSpotItems(spot);
 
 		assertThat(0, not(spot.getItems().size()));
+	}
+
+	@Test
+	public void testUpdateNearestSpots() throws Exception {
+		Location location = new Location(50.07607, 14.41917);
+		gowalla.updateNearestSpots(location);
+	}
+
+	@Test
+	public void testGetMissingItemTypes() throws Exception {
+		Person person = new Person();
+		person.setId(personIdOndra);
+
+		List<ItemType> missing = gowalla.getMissingItemTypes(person);
+		boolean flag = false;
+		for (ItemType item : missing) {
+			if (item.getName().equals("Mickey Hat")) {
+				flag = true;
+				break;
+			}
+		}
+		assertTrue(flag);
+	}
+
+	@Test
+	public void testGetCollectionItemTypes() throws Exception {
+		Person person = new Person();
+		person.setId(personIdOndra);
+
+		List<ItemType> collection = gowalla.getCollectionItemTypes(person);
+		boolean flag = false;
+		for (ItemType item : collection) {
+			if (item.getName().equals("Marbles")) {
+				flag = true;
+				break;
+			}
+		}
+		assertTrue(flag);
+	}
+
+	@Test
+	public void testUpdateItemTypes() throws Exception {
+		Person person = new Person();
+		person.setId(personIdOndra);
+
+		gowalla.updateItemTypes(person);
 	}
 
 }
