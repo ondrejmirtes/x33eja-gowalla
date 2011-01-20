@@ -5,9 +5,11 @@
 	  xmlns:pretty="http://ocpsoft.com/prettyfaces">
     <h:head>
         <title>Facelet Title</title>
+		<h:outputStylesheet library="css" name="reset.css"/>
+		<h:outputStylesheet library="css" name="screen.css"/>
     </h:head>
     <h:body>
-        Hello from Facelets
+        <h:graphicImage library="gfx" name="gowalla-connect.png"/>
 		<a href="#{oAuthBean.redirect}">OAuth login</a>
     </h:body>
 </html>
