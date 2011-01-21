@@ -1,12 +1,33 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
-    <h:head>
-        <title>Items to choose</title>
-    </h:head>
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:body>
-        <h:link outcome="pretty:logout">Logout user</h:link>
+		<ui:composition template="layout.xhtml">
+			<ui:param name="title" value="Item choosing" />
+			<ui:define name="content">
+				<div class="container_16">
+					<div class="grid_16 center"><h1>GoSpot</h1></div>
+				</div>
+				<div class="container_16">
+					<div class="grid_11">
+						<div class="rounded">
+							&nbsp;
+						</div>
+					</div>
+					<div class="grid_5">
+						<div class="login rounded">
+							<div>#{itemsBean.person.name}</div>
+							<div><h:link styleClass="logout" outcome="pretty:logout">Logout user</h:link></div>
+						</div>
+						<div class="notMissing rounded">
+							Add item
+							<div>selectbox</div>
+						</div>
+					</div>
+				</div>
+			</ui:define>
+		</ui:composition>
     </h:body>
 </html>
-

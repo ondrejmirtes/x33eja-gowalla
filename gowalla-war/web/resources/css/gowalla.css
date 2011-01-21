@@ -1,0 +1,40 @@
+h1 {
+	margin-top: 1em;
+}
+
+.center {
+	width: 500px;
+	margin: 0 auto;
+}
+
+.center h1 {
+	text-align: center;
+}
+
+.connect {
+	display: block;
+	text-align: center;
+}
+
+.rounded {
+	border: 2px solid #000000;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+
+	padding: 15px;
+
+	margin-bottom: 0.7em;
+}
+
+.login {
+	
+}
+
+.logout {
+	display: block;
+	padding: 3px;
+	text-align: center;
+	border: 1px solid #cccccc;
+	margin-top: 0.7em;
+}

@@ -2,13 +2,19 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-	  xmlns:pretty="http://ocpsoft.com/prettyfaces">
-    <h:head>
-        <title>Facelet Title</title>
-		<h:outputStylesheet library="css" name="reset.css"/>
-		<h:outputStylesheet library="css" name="screen.css"/>
-    </h:head>
+	  xmlns:pretty="http://ocpsoft.com/prettyfaces"
+	  xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:body>
-		<a href="#{oAuthBean.redirect}"><h:graphicImage library="gfx" name="gowalla-connect.png"/></a>
+		<ui:composition template="layout.xhtml">
+			<ui:param name="title" value="Login" />
+			<ui:define name="content">
+				<div class="center">
+					<h1>GoSpot</h1>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean a dolor at nisi interdum pellentesque eget sit amet augue. Aliquam et velit justo, sit amet tristique erat. Donec a nibh urna, volutpat vehicula enim. Nam sit amet libero tortor. Duis vel vehicula odio. In dui nunc, gravida adipiscing dictum vel, dictum sed velit. Aliquam justo purus, tristique quis pretium id, laoreet id orci. Quisque placerat, lacus quis dignissim condimentum, magna enim iaculis ipsum, nec vestibulum erat metus nec mauris.</p>
+					<p>Sed in lectus vel sem porttitor ullamcorper vitae id sapien. Aenean vitae metus purus, eu tempus dui. Phasellus et arcu lectus, nec condimentum tortor. Aenean tempus, sem sit amet ornare eleifend, mi elit porttitor mauris, et sagittis felis enim et diam. Nunc nec odio non turpis bibendum laoreet. Integer dapibus felis eu risus posuere faucibus. Vestibulum lectus libero, blandit nec bibendum vitae, interdum in justo. Vivamus a faucibus ante. Nullam ac erat massa. Fusce faucibus semper arcu quis bibendum. Integer eget enim vel tellus bibendum porta ac a nunc. Cras nec lorem lectus, nec gravida nulla.</p>
+					<a class="connect" href="#{oAuthBean.redirect}"><h:graphicImage library="gfx" name="gowalla-connect.png"/></a>
+				</div>
+			</ui:define>
+		</ui:composition>
     </h:body>
 </html>

@@ -36,14 +36,4 @@ public class IndexBean {
 		return null;
 	}
 
-	public String getUserName() {
-		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-		Person person = (Person) session.getAttribute("person");
-		if (person != null) {
-			return person.getName();
-		} else {
-			return "fail";
-		}
-	}
-
 }
