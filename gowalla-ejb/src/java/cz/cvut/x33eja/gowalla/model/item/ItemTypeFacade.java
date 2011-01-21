@@ -55,7 +55,12 @@ public class ItemTypeFacade extends AbstractFacade<ItemType> implements IItemTyp
 
 	@Override
 	public List<ItemType> findNotFollowedItemTypes(Person person) {
-		throw new UnsupportedOperationException("Not supported yet.");
+		List<ItemType> list = findAll();
+		for (ItemType item : person.getFollowedTypes()) {
+			list.remove(item);
+		}
+
+		return list;
 	}
 
 	@Override
