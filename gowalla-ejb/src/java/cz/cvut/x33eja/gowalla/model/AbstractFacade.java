@@ -23,11 +23,11 @@ public abstract class AbstractFacade<T> {
 		this.entityClass = entityClass;
 	}
 
-	protected EntityManager getEntityManager() {
+	public EntityManager getEntityManager() {
 		return em;
 	}
 
-	protected void setEntityManager(EntityManager em) {
+	public void setEntityManager(EntityManager em) {
 		this.em = em;
 	}
 
