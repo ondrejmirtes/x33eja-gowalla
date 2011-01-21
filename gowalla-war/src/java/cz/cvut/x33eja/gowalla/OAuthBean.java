@@ -9,9 +9,13 @@ import com.ocpsoft.pretty.faces.annotation.URLAction;
 import com.ocpsoft.pretty.faces.annotation.URLMapping;
 import com.ocpsoft.pretty.faces.annotation.URLQueryParameter;
 import cz.cvut.x33eja.gowalla.model.GowallaFacade;
-import java.io.IOException;
+import cz.cvut.x33eja.gowalla.model.person.IPersonFacadeLocal;
+import cz.cvut.x33eja.gowalla.model.person.Person;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.core.UriBuilder;
 
 /**
@@ -20,8 +24,11 @@ import javax.ws.rs.core.UriBuilder;
  */
 @ManagedBean
 @RequestScoped
-@URLMapping(id="oauth", pattern="/oauth-redirect", viewId="/oauth.xhtml")
+@URLMapping(id="oauth", pattern="/oauth-redirect", viewId="/faces/oauth.xhtml")
 public class OAuthBean {
+
+	@EJB
+	private IPersonFacadeLocal personFacade;
 
 	@URLQueryParameter("code")
 	private String code;
@@ -46,8 +53,11 @@ public class OAuthBean {
 	}
 
 	@URLAction
-	public void login() {
-		
+	public String login() {
+		Person person = personFacade.find(1L);
+		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+		session.setAttribute("person", person);
+		return "pretty:index";
 	}
 
 }

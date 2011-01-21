@@ -7,8 +7,11 @@ package cz.cvut.x33eja.gowalla;
 
 import com.ocpsoft.pretty.faces.annotation.URLAction;
 import com.ocpsoft.pretty.faces.annotation.URLMapping;
+import cz.cvut.x33eja.gowalla.model.person.Person;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -16,7 +19,7 @@ import javax.faces.bean.RequestScoped;
  */
 @ManagedBean
 @RequestScoped
-@URLMapping(id="index", pattern="/", viewId="/index.xhtml")
+@URLMapping(id="index", pattern="/", viewId="/faces/index.xhtml")
 public class IndexBean {
 
     /** Creates a new instance of IndexBean */
@@ -24,8 +27,23 @@ public class IndexBean {
     }
 
 	@URLAction
-	public void test() {
-		
+	public String index() {
+		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+		if (session.getAttribute("person") != null) {
+			return "pretty:items";
+		}
+
+		return null;
+	}
+
+	public String getUserName() {
+		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+		Person person = (Person) session.getAttribute("person");
+		if (person != null) {
+			return person.getName();
+		} else {
+			return null;
+		}
 	}
 
 }
