@@ -1,8 +1,9 @@
 package cz.cvut.x33eja.gowalla.model.item;
 
-import java.util.List;
 import cz.cvut.x33eja.gowalla.model.person.Person;
 import cz.cvut.x33eja.gowalla.model.EntityManagerTestCase;
+
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -14,7 +15,7 @@ import static org.junit.Assert.*;
  */
 public class ItemTypeFacadeTest extends EntityManagerTestCase {
 
-	ItemTypeFacade itemTypeFacade;
+	private ItemTypeFacade itemTypeFacade;
 
 	////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////
@@ -30,7 +31,7 @@ public class ItemTypeFacadeTest extends EntityManagerTestCase {
 	public void testFindNotFollowedItemTypes() throws Exception {
 		int cnt = itemTypeFacade.count();
 		if (cnt == 0) {
-			fail("This test needs ItemType data in database");
+			fail("This test requires ItemType data in database");
 		}
 
 		Person person = new Person();
@@ -40,6 +41,7 @@ public class ItemTypeFacadeTest extends EntityManagerTestCase {
 		person.addFollowedType(button);
 
 		List<ItemType> notFollowed = itemTypeFacade.findNotFollowedItemTypes(person);
+		assertTrue(notFollowed.size() > 0);
 		assertFalse(notFollowed.contains(mantis));
 		assertFalse(notFollowed.contains(button));
 	}
