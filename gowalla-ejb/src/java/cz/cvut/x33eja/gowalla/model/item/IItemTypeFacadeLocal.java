@@ -30,8 +30,22 @@ public interface IItemTypeFacadeLocal {
 	 */
 	List<Item> findFollowedItems(Person person, List<Spot> spots);
 
+	/**
+	 * Find which items (item types) are missing from user's collection
+	 *
+	 * @param person
+	 * @return
+	 */
+    List<ItemType> findMissingItemTypes(Person person);
+
+	List<ItemType> findNotFollowedItemTypes(Person person);
+
 	ItemType findByName(String name);
 
+	void addFollowedItemType(Person person, ItemType itemType);
+
+	void removeFollowedItemType(Person person, ItemType itemType);
+	
 	////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////

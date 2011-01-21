@@ -47,5 +47,25 @@ public class ItemTypeFacade extends AbstractFacade<ItemType> implements IItemTyp
 			return null;
 		}
 	}
+
+	@Override
+	public List<ItemType> findMissingItemTypes(Person person) {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
+
+	@Override
+	public List<ItemType> findNotFollowedItemTypes(Person person) {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
+
+	@Override
+	public void addFollowedItemType(Person person, ItemType itemType) {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
+
+	@Override
+	public void removeFollowedItemType(Person person, ItemType itemType) {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
 	
 }
