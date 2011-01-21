@@ -32,9 +32,9 @@ public class GowallaFacadeTest extends EntityManagerTestCase {
 
 	public static final String AUTH_KEY = "2113fef256942b82fc6c6e0452d0be62";
 
-	private static long spoIdCVUT = 4085165L;
+	public static long spotIdCVUT = 4085165L;
 
-	private static long personIdOndra = 230916L;
+	public static long personIdOndra = 230916L;
 
 	////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////
@@ -75,10 +75,10 @@ public class GowallaFacadeTest extends EntityManagerTestCase {
 
 	@Test
 	public void testUpdateSpotItems() throws Exception {
-		Spot spot = spotFacade.find(spoIdCVUT);
+		Spot spot = spotFacade.find(spotIdCVUT);
 		if (spot == null) {
 			spot = new Spot();
-			spot.setId(spoIdCVUT);
+			spot.setId(spotIdCVUT);
 			spotFacade.create(spot);
 		}
 
