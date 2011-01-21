@@ -41,10 +41,6 @@ public interface IItemTypeFacadeLocal {
 	List<ItemType> findNotFollowedItemTypes(Person person);
 
 	ItemType findByName(String name);
-
-	void addFollowedItemType(Person person, ItemType itemType);
-
-	void removeFollowedItemType(Person person, ItemType itemType);
 	
 	////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////

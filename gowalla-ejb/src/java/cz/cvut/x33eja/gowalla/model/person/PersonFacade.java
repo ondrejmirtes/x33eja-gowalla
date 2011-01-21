@@ -1,6 +1,7 @@
 package cz.cvut.x33eja.gowalla.model.person;
 
 import cz.cvut.x33eja.gowalla.model.AbstractFacade;
+import cz.cvut.x33eja.gowalla.model.item.ItemType;
 import javax.ejb.Stateless;
 
 /**
@@ -22,6 +23,16 @@ public class PersonFacade extends AbstractFacade<Person> implements IPersonFacad
 	////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////
 
-	// custom methods
+	@Override
+	public void addFollowedItemType(Person person, ItemType itemType) {
+		person.addFollowedType(itemType);
+		edit(person);
+	}
+
+	@Override
+	public void removeFollowedItemType(Person person, ItemType itemType) {
+		person.removeFollowedType(itemType);
+		edit(person);
+	}
 	
 }

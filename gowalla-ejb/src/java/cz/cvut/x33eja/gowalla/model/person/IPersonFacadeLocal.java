@@ -1,5 +1,7 @@
 package cz.cvut.x33eja.gowalla.model.person;
 
+import cz.cvut.x33eja.gowalla.model.item.ItemType;
+
 import java.util.List;
 import javax.ejb.Local;
 
@@ -10,7 +12,9 @@ import javax.ejb.Local;
 @Local
 public interface IPersonFacadeLocal {
 
-	// custom methods here
+	void addFollowedItemType(Person person, ItemType itemType);
+
+	void removeFollowedItemType(Person person, ItemType itemType);
 
 	////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////
