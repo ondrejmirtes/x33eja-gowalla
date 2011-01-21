@@ -30,7 +30,7 @@ public class GowallaFacadeTest extends EntityManagerTestCase {
 
 	private ItemTypeFacade itemTypeFacade;
 
-	private static final String AUTH_KEY = "fd47346444c9563bffea9af27a1b92e0";
+	public static final String AUTH_KEY = "2113fef256942b82fc6c6e0452d0be62";
 
 	private static long spoIdCVUT = 4085165L;
 

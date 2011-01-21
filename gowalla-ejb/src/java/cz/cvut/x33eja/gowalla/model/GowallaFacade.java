@@ -7,10 +7,12 @@ import com.ginsberg.gowalla.Gowalla;
 import com.ginsberg.gowalla.ItemContext;
 
 import cz.cvut.x33eja.gowalla.model.item.*;
+import cz.cvut.x33eja.gowalla.model.oauth.OAuth;
 import cz.cvut.x33eja.gowalla.model.person.*;
 import cz.cvut.x33eja.gowalla.model.spot.*;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,7 +30,11 @@ public class GowallaFacade implements IGowallaFacadeLocal {
 
 	Gowalla gowalla;
 
+	com.ginsberg.gowalla.oauth.OAuth oAuth;
+
 	String authKey;
+
+	com.ginsberg.gowalla.dto.oauth.OAuthAccessTokenResponse accessToken;
 
 	@Inject
 	IPersonFacadeLocal personFacade;
@@ -52,18 +58,11 @@ public class GowallaFacade implements IGowallaFacadeLocal {
 	////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////
 
-	protected Gowalla getGowalla() {
-		if (gowalla == null) {
-			initGowalla();
-		}
-		
-		return gowalla;
-	}
-
 	public String getAuthKey() {
 		return authKey;
 	}
 
+	@Override
 	public void setAuthKey(String authKey) {
 		this.authKey = authKey;
 	}
@@ -104,22 +103,111 @@ public class GowallaFacade implements IGowallaFacadeLocal {
 	////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////
 
-	private void initGowalla() {
+	protected void initGowalla() {
+		com.ginsberg.gowalla.dto.oauth.OAuthAccessTokenResponse token = getAccessToken();
+		gowalla = new Gowalla("UnitTests", API_KEY, new com.ginsberg.gowalla.auth.OAuth2Authentication(token.getAccessToken()));
+		gowalla.setRateLimiter(new com.ginsberg.gowalla.rate.RequestsOverTime(5));
+	}
+
+	protected Gowalla getGowalla() {
+		if (gowalla == null) {
+			initGowalla();
+		}
+
+		return gowalla;
+	}
+
+	protected com.ginsberg.gowalla.oauth.OAuth getGowallaOAuth() {
+		if (oAuth == null) {
+			oAuth = new com.ginsberg.gowalla.oauth.OAuth(API_KEY, SECRET_KEY, CALLBACK_URL);
+		}
+
+		return oAuth;
+	}
+
+	protected com.ginsberg.gowalla.dto.oauth.OAuthAccessTokenResponse getAccessToken() {
+		if (accessToken == null) {
+			accessToken = requestAccessToken();
+		}
+
+		return accessToken;
+	}
+
+	protected com.ginsberg.gowalla.dto.oauth.OAuthAccessTokenResponse requestAccessToken() {
 		if (authKey == null) {
 			throw new IllegalStateException("You must set the Auth Key first");
 		}
+		com.ginsberg.gowalla.oauth.OAuth auth = getGowallaOAuth();
 		try {
-			com.ginsberg.gowalla.oauth.OAuth oauth = new com.ginsberg.gowalla.oauth.OAuth(API_KEY, SECRET_KEY, CALLBACK_URL);
-			com.ginsberg.gowalla.dto.oauth.OAuthAccessTokenResponse token = oauth.requestAccessToken(com.ginsberg.gowalla.oauth.OAuth.Scope.READ_WRITE, authKey);
-			gowalla = new Gowalla("UnitTests", API_KEY, new com.ginsberg.gowalla.auth.OAuth2Authentication(token.getAccessToken()));
-			gowalla.setRateLimiter(new com.ginsberg.gowalla.rate.RequestsOverTime(5));
+			return auth.requestAccessToken(com.ginsberg.gowalla.oauth.OAuth.Scope.READ_WRITE, authKey);
 		} catch (GowallaRequestException ex) {
 			Logger.getLogger(GowallaFacade.class.getName()).log(Level.SEVERE, null, ex);
 		}
+
+		return null;
 	}
+
+	protected OAuth processOAuthToken(com.ginsberg.gowalla.dto.oauth.OAuthAccessTokenResponse token) {
+		OAuth auth = new OAuth();
+		auth.setCode(authKey);
+		auth.setAccessToken(token.getAccessToken());
+		auth.setRefreshToken(token.getRefreshToken());
+		Calendar calendar = Calendar.getInstance();
+		auth.setExpiresAt((calendar.getTimeInMillis()/1000) + token.getExpiresIn());
+
+		return auth;
+	}
+
 	////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////
+
+	@Override
+	public String getOAuthRequestUrl() {
+		com.ginsberg.gowalla.oauth.OAuth auth = getGowallaOAuth();
+		return auth.createAuthorizationRequest();
+	}
+
+	@Override
+	public OAuth getOAuth() {
+		com.ginsberg.gowalla.dto.oauth.OAuthAccessTokenResponse token = getAccessToken();
+		OAuth auth = processOAuthToken(token);
+		Person person = getPerson(token.getUsername());
+		auth.setPerson(person);
+
+		return auth;
+	}
+
+	@Override
+	public OAuth refreshOAuthToken(String refreshToken) {
+		com.ginsberg.gowalla.oauth.OAuth auth = getGowallaOAuth();
+		try {
+			accessToken = auth.refreshAccessToken(refreshToken);
+			return processOAuthToken(accessToken);
+		} catch (GowallaRequestException ex) {
+			Logger.getLogger(GowallaFacade.class.getName()).log(Level.SEVERE, null, ex);
+		}
+
+		return null;
+	}
+
+	////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////
+
+	public Person getPerson(String login) {
+		Person person = new Person();
+		try {
+			com.ginsberg.gowalla.dto.User user = getGowalla().getUser(login);
+			person.setId(new Long(user.getId()));
+			person.setNick(login);
+			person.setName(user.getName());
+		} catch (GowallaException ex) {
+			Logger.getLogger(GowallaFacade.class.getName()).log(Level.SEVERE, null, ex);
+		}
+
+		return person;
+	}
 
 	@Override
 	public void updatePersonLocation(Person person) {

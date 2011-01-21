@@ -1,5 +1,6 @@
 package cz.cvut.x33eja.gowalla.model.oauth;
 
+import cz.cvut.x33eja.gowalla.model.person.Person;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -10,7 +11,11 @@ import javax.ejb.Local;
 @Local
 public interface IOAuthFacadeLocal {
 
-	// custom methods here
+	public String getOAuthRequestUrl();
+
+	public Person getPerson(String code);
+
+	public void refreshToken(String code);
 
 	////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////

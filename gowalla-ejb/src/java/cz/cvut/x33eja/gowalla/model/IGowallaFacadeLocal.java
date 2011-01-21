@@ -1,6 +1,7 @@
 package cz.cvut.x33eja.gowalla.model;
 
 import cz.cvut.x33eja.gowalla.model.item.ItemType;
+import cz.cvut.x33eja.gowalla.model.oauth.OAuth;
 import cz.cvut.x33eja.gowalla.model.person.Person;
 import cz.cvut.x33eja.gowalla.model.spot.Spot;
 
@@ -13,6 +14,18 @@ import javax.ejb.Local;
  */
 @Local
 public interface IGowallaFacadeLocal {
+
+	public String getOAuthRequestUrl();
+
+	public void setAuthKey(String authKey);
+
+	public OAuth getOAuth();
+
+	public OAuth refreshOAuthToken(String refreshToken);
+
+	////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////
 
 	/**
 	 * Update user's location based on last check-in
@@ -27,6 +40,13 @@ public interface IGowallaFacadeLocal {
 	 * @param spot
 	 */
 	void updateSpotItems(Spot spot);
+
+	/**
+	 * Download list of nearest items and add them to DB (if they are not alreday there)
+	 *
+	 * @param location
+	 */
+	public void updateNearestSpots(Location location);
 
 	/**
 	 * Download list of nearest items and add them to DB (if they are not alreday there)
