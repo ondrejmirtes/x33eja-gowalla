@@ -53,16 +53,6 @@ public class PersonTest {
 	}
 
 	@Test
-	public void testCollection() {
-		Collection col = new Collection();
-		col.addItem(new Item());
-		col.addItem(new Item());
-
-		p.setCollection(col);
-		assertEquals(col, p.getCollection());
-	}
-
-	@Test
 	public void testItems() {
 		Item i = new Item();
 		p.addItem(i);

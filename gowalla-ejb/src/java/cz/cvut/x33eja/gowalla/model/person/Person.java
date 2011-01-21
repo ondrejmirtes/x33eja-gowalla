@@ -89,12 +89,20 @@ public class Person extends SimpleEntity {
 		}
 	}
 
-	public Collection getCollection() {
+	private Collection getCollection() {
+		if (collection == null) {
+			collection = new Collection();
+		}
+		
 		return collection;
 	}
 
-	public void setCollection(Collection collection) {
-		this.collection = collection;
+	public void addCollectionItem(Item item) {
+		getCollection().addItem(item);
+	}
+
+	public List<Item> getCollectionItems() {
+		return getCollection().getItems();
 	}
 
 	public List<Item> getItems() {
