@@ -83,7 +83,10 @@ public class Person extends SimpleEntity {
 	}
 
 	public void setOAuth(OAuth oAuth) {
-		this.oAuth = oAuth;
+		if (this.oAuth !=  oAuth) {
+			this.oAuth = oAuth;
+			oAuth.setPerson(this);
+		}
 	}
 
 	public Collection getCollection() {

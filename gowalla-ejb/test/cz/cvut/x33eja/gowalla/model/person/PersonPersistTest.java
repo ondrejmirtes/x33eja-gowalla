@@ -25,8 +25,8 @@ public class PersonPersistTest extends EntityManagerTestCase {
 		p.addFollowedType(new ItemType());
 
 		OAuth oa = new OAuth();
-		oa.setToken("foo");
-		oa.setTokenSecret("bar");
+		oa.setAccessToken("foo");
+		oa.setRefreshToken("bar");
 		p.setOAuth(oa);
 	}
 

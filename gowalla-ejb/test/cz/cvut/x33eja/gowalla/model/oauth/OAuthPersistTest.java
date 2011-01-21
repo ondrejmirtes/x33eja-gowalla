@@ -16,8 +16,8 @@ public class OAuthPersistTest extends EntityManagerTestCase {
 	@Before
 	public void setUp() {
 		oa = new OAuth();
-		oa.setToken("foo");
-		oa.setTokenSecret("bar");
+		oa.setAccessToken("foo");
+		oa.setRefreshToken("bar");
 	}
 
 	@Test

@@ -19,14 +19,14 @@ public class OAuthTest {
 
 	@Test
 	public void testToken() {
-		oa.setToken("foo");
-		assertEquals("foo", oa.getToken());
+		oa.setAccessToken("foo");
+		assertEquals("foo", oa.getAccessToken());
 	}
 
 	@Test
 	public void testTokenSecret() {
-		oa.setTokenSecret("bar");
-		assertEquals("bar", oa.getTokenSecret());
+		oa.setRefreshToken("bar");
+		assertEquals("bar", oa.getRefreshToken());
 	}
 
 }

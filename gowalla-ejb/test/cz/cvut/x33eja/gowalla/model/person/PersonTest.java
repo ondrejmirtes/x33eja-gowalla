@@ -45,8 +45,8 @@ public class PersonTest {
 	@Test
 	public void testOAuth() {
 		OAuth oa = new OAuth();
-		oa.setToken("foo");
-		oa.setTokenSecret("bar");
+		oa.setAccessToken("foo");
+		oa.setRefreshToken("bar");
 
 		p.setOAuth(oa);
 		assertEquals(oa, p.getOAuth());
