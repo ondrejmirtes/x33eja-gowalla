@@ -2,6 +2,7 @@ package cz.cvut.x33eja.gowalla.model.oauth;
 
 import cz.cvut.x33eja.gowalla.model.AbstractFacade;
 import cz.cvut.x33eja.gowalla.model.IGowallaFacadeLocal;
+import cz.cvut.x33eja.gowalla.model.person.IPersonFacadeLocal;
 import cz.cvut.x33eja.gowalla.model.person.Person;
 
 import javax.ejb.Stateless;
@@ -18,6 +19,9 @@ public class OAuthFacade extends AbstractFacade<OAuth> implements IOAuthFacadeLo
 
 	@Inject
 	IGowallaFacadeLocal gowallaFacade;
+
+	@Inject
+	IPersonFacadeLocal personFacade;
 
 	////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////
@@ -46,12 +50,15 @@ public class OAuthFacade extends AbstractFacade<OAuth> implements IOAuthFacadeLo
 
 	@Override
 	public Person getPerson(String code) {
-		OAuth auth = findByCode(code);
-		if (auth == null) {
-			return doFirstLogin(code);
-		} 
-
-		return auth.getPerson();
+		gowallaFacade.setAuthKey(code);
+		OAuth auth = gowallaFacade.getOAuth();
+		Person person = auth.getPerson();
+		Person foundPerson = personFacade.find(person.getId());
+		if (foundPerson != null) {
+			return foundPerson;
+		}
+		create(auth);
+		return person;
 	}
 
 	@Override
@@ -76,19 +83,6 @@ public class OAuthFacade extends AbstractFacade<OAuth> implements IOAuthFacadeLo
 		} catch (NoResultException exc) {
 			return null;
 		}
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////
-
-	private Person doFirstLogin(String code) {
-		gowallaFacade.setAuthKey(code);
-		OAuth auth = gowallaFacade.getOAuth();
-		create(auth);
-		// @todo init collection
-
-		return auth.getPerson();
 	}
 	
 }

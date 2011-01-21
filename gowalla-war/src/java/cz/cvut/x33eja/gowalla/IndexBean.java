@@ -42,7 +42,7 @@ public class IndexBean {
 		if (person != null) {
 			return person.getName();
 		} else {
-			return null;
+			return "fail";
 		}
 	}
 

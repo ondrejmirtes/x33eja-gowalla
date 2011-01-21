@@ -9,9 +9,6 @@
 		<h:outputStylesheet library="css" name="screen.css"/>
     </h:head>
     <h:body>
-        <h:graphicImage library="gfx" name="gowalla-connect.png"/>
-		<a href="#{oAuthBean.redirect}">OAuth login</a>
-
-		<p>#{indexBean.userName}</p>
+		<a href="#{oAuthBean.redirect}"><h:graphicImage library="gfx" name="gowalla-connect.png"/></a>
     </h:body>
 </html>
