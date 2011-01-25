@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.HashMap;
-import javax.ejb.Stateful;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 
@@ -25,7 +25,7 @@ import javax.inject.Inject;
  *
  * @author Vašek Purchart
  */
-@Stateful
+@Stateless
 public class GowallaFacade implements IGowallaFacadeLocal {
 
 	Gowalla gowalla;

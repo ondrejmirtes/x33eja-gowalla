@@ -2,7 +2,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-	  xmlns:ui="http://java.sun.com/jsf/facelets">
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:c="http://java.sun.com/jsp/jstl/core">
     <h:body>
 		<ui:composition template="layout.xhtml">
 			<ui:param name="title" value="Item choosing" />
@@ -22,8 +24,17 @@
 							<div><h:link styleClass="logout" outcome="pretty:logout">Logout user</h:link></div>
 						</div>
 						<div class="notMissing rounded">
-							Add item
-							<div>selectbox</div>
+							<f:view>
+								<h:form>
+									<h:selectOneListbox id="addItemType" size="1" value="#{itemsBean.itemId}">
+										<f:selectItem id="item1" itemLabel="Add item" itemValue="0" />
+										<c:forEach items="#{itemsBean.notMissingItemTypes}" var="item" >
+											<f:selectItem itemValue="#{item.id}" itemLabel="#{item.name}" />
+										</c:forEach>
+									</h:selectOneListbox>
+									<h:commandButton actionListener="#{itemsBean.addItem}" value="Add" />
+								</h:form>
+							</f:view>
 						</div>
 					</div>
 				</div>
