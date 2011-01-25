@@ -15,24 +15,40 @@
 				<div class="container_16">
 					<div class="grid_11">
 						<div class="rounded">
-							&nbsp;
+							<h2>Followed types</h2>
+
+							<c:choose>
+								<c:when test="#{itemsBean.followedItemTypes.size() > 0}">
+									<h:form>
+									<ul>
+										<c:forEach items="#{itemsBean.followedItemTypes}" var="item">
+											<li>#{item.name} (<h:link outcome="pretty:unfollowItem"><f:param name="itemId" value="#{item.id}" />unfollow</h:link>)</li>
+										</c:forEach>
+									</ul>
+									</h:form>
+								</c:when>
+								<c:otherwise>
+									<p>You don't follow any item types yet.</p>
+								</c:otherwise>
+							</c:choose>
 						</div>
 					</div>
 					<div class="grid_5">
 						<div class="login rounded">
-							<div>#{itemsBean.person.name}</div>
+							<h2>#{itemsBean.person.name}</h2>
 							<div><h:link styleClass="logout" outcome="pretty:logout">Logout user</h:link></div>
 						</div>
 						<div class="notMissing rounded">
+							<h2>Add followed type</h2>
 							<f:view>
 								<h:form>
 									<h:selectOneListbox id="addItemType" size="1" value="#{itemsBean.itemId}">
-										<f:selectItem id="item1" itemLabel="Add item" itemValue="0" />
-										<c:forEach items="#{itemsBean.notMissingItemTypes}" var="item" >
+										<f:selectItem id="item1" itemLabel="Choose an item type" itemValue="0" />
+										<c:forEach items="#{itemsBean.notFollowedItemTypes}" var="item">
 											<f:selectItem itemValue="#{item.id}" itemLabel="#{item.name}" />
 										</c:forEach>
 									</h:selectOneListbox>
-									<h:commandButton actionListener="#{itemsBean.addItem}" value="Add" />
+									<h:commandButton action="#{itemsBean.addItem}" value="Add" />
 								</h:form>
 							</f:view>
 						</div>

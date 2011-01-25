@@ -51,10 +51,12 @@ public class ItemsBean {
 		return person;
 	}
 
-	public List<ItemType> getNotMissingItemTypes() {
+	public List<ItemType> getNotFollowedItemTypes() {
 		return itemTypeFacade.findNotFollowedItemTypes(person);
-		//gowallaFacade.setAuthKey(person.getOAuth().getCode());
-		//return gowallaFacade.getMissingItemTypes(person);
+	}
+
+	public List<ItemType> getFollowedItemTypes() {
+		return person.getFollowedTypes();
 	}
 
 	@URLAction
@@ -72,7 +74,11 @@ public class ItemsBean {
 		//gowallaFacade.updateItemTypes(person);
 	}
 
+	/**
+	 * Form submit
+	 */
 	public String addItem() {
+		System.out.println(itemId);
 		ItemType item = itemTypeFacade.find((long) Integer.parseInt(itemId));
 		personFacade.addFollowedItemType(person, item);
 		itemId = "0";
