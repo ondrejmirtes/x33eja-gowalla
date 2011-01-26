@@ -32,6 +32,20 @@
 								</c:otherwise>
 							</c:choose>
 						</div>
+						<div class="rounded">
+							<c:choose>
+								<c:when test="#{itemsBean.person.email != null}">
+									<p>Your e-mail is: <a href="mailto:#{itemsBean.person.email}">#{itemsBean.person.email}</a></p>
+								</c:when>
+								<c:otherwise>
+									<h:form>
+										<p>Please, fill in your e-mail, so we can send you e-mails.</p>
+										<h:inputText value="#{itemsBean.email}" />
+										<h:commandButton action="#{itemsBean.saveEmail}" value="Save" />
+									</h:form>
+								</c:otherwise>
+							</c:choose>
+						</div>
 					</div>
 					<div class="grid_5">
 						<div class="login rounded">

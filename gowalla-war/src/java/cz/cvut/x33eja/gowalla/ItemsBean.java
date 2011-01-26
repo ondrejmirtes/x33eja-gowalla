@@ -41,6 +41,8 @@ public class ItemsBean {
 
 	private Person person;
 
+	private String email;
+
     /** Creates a new instance of ItemsBean */
     public ItemsBean() {
 		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
@@ -85,12 +87,29 @@ public class ItemsBean {
 		return "pretty:items";
 	}
 
+	/**
+	 * Form submit
+	 */
+	public String saveEmail() {
+		person.setEmail(email);
+		personFacade.edit(person);
+		return "pretty:items";
+	}
+
 	public String getItemId() {
 		return itemId;
 	}
 
 	public void setItemId(String itemId) {
 		this.itemId = itemId;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 }

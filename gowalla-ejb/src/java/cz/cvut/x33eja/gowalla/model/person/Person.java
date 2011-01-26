@@ -27,6 +27,8 @@ public class Person extends SimpleEntity {
 
 	private String name;
 
+	private String email;
+
 	private double latitude;
 
 	private double longitude;
@@ -67,6 +69,14 @@ public class Person extends SimpleEntity {
 
 	public void setNick(String nick) {
 		this.nick = nick;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public Location getLocation() {
