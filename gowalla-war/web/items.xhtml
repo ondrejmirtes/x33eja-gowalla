@@ -40,7 +40,10 @@
 								<c:otherwise>
 									<h:form>
 										<p>Please, fill in your e-mail, so we can send you e-mails.</p>
-										<h:inputText value="#{itemsBean.email}" />
+										<h:message errorStyle="color: #ff0000; text-weight: bold;" for="email" />
+										<h:inputText id="email" value="#{itemsBean.email}" required="true" requiredMessage="Please fill in your e-mail" validatorMessage="Invalid email">
+											<f:validateRegex for="email" pattern="^[A-Za-z0-9._%+-]+@([A-Za-z0-9-]+\.)+([A-Za-z0-9]{2,4}|museum)$" />
+										</h:inputText>
 										<h:commandButton action="#{itemsBean.saveEmail}" value="Save" />
 									</h:form>
 								</c:otherwise>

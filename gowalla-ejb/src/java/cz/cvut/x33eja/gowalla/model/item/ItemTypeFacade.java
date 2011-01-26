@@ -3,6 +3,7 @@ package cz.cvut.x33eja.gowalla.model.item;
 import cz.cvut.x33eja.gowalla.model.AbstractFacade;
 import cz.cvut.x33eja.gowalla.model.person.Person;
 import cz.cvut.x33eja.gowalla.model.spot.Spot;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.Query;
@@ -34,7 +35,18 @@ public class ItemTypeFacade extends AbstractFacade<ItemType> implements IItemTyp
 
 	@Override
 	public List<Item> findFollowedItems(Person person, List<Spot> spots) {
-		throw new UnsupportedOperationException("Not supported yet.");
+		List<ItemType> types = person.getFollowedTypes();
+		List<Item> items = new ArrayList<Item>();
+
+		for (Spot s : spots) {
+			for (Item i : s.getItems()) {
+				if (types.contains(i.getItemType())) {
+					items.add(i);
+				}
+			}
+		}
+
+		return items;
 	}
 
 	@Override
