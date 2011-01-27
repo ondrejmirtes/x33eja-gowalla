@@ -7,7 +7,7 @@
 	  xmlns:c="http://java.sun.com/jsp/jstl/core">
     <h:body>
 		<ui:composition template="layout.xhtml">
-			<ui:param name="title" value="Item choosing" />
+			<ui:param name="title" value="#{msgs.item_choosing}" />
 			<ui:define name="content">
 				<div class="container_16">
 					<div class="grid_16 center"><h1>GoSpot</h1></div>
@@ -15,36 +15,36 @@
 				<div class="container_16">
 					<div class="grid_11">
 						<div class="rounded">
-							<h2>Followed types</h2>
+							<h2>#{msgs.followed_types}</h2>
 
 							<c:choose>
 								<c:when test="#{itemsBean.followedItemTypes.size() > 0}">
 									<h:form>
 									<ul>
 										<c:forEach items="#{itemsBean.followedItemTypes}" var="item">
-											<li>#{item.name} (<h:link outcome="pretty:unfollowItem"><f:param name="itemId" value="#{item.id}" />unfollow</h:link>)</li>
+											<li>#{item.name} (<h:link outcome="pretty:unfollowItem"><f:param name="itemId" value="#{item.id}" />#{msgs.unfollow}</h:link>)</li>
 										</c:forEach>
 									</ul>
 									</h:form>
 								</c:when>
 								<c:otherwise>
-									<p>You don't follow any item types yet.</p>
+									<p>#{msgs.you_dont_follow_yet}</p>
 								</c:otherwise>
 							</c:choose>
 						</div>
 						<div class="rounded">
 							<c:choose>
 								<c:when test="#{itemsBean.person.email != null}">
-									<p>Your e-mail is: <a href="mailto:#{itemsBean.person.email}">#{itemsBean.person.email}</a></p>
+									<p>#{msgs.your_email_is}: <a href="mailto:#{itemsBean.person.email}">#{itemsBean.person.email}</a></p>
 								</c:when>
 								<c:otherwise>
 									<h:form>
-										<p>Please, fill in your e-mail, so we can send you e-mails.</p>
+										<p>#{msgs.fill_in_your_email}</p>
 										<h:message errorStyle="color: #ff0000; text-weight: bold;" for="email" />
-										<h:inputText id="email" value="#{itemsBean.email}" required="true" requiredMessage="Please fill in your e-mail" validatorMessage="Invalid email">
+										<h:inputText id="email" value="#{itemsBean.email}" required="true" requiredMessage="#{msgs.fill_in_your_email}" validatorMessage="#{msgs.invalid_email}">
 											<f:validateRegex for="email" pattern="^[A-Za-z0-9._%+-]+@([A-Za-z0-9-]+\.)+([A-Za-z0-9]{2,4}|museum)$" />
 										</h:inputText>
-										<h:commandButton action="#{itemsBean.saveEmail}" value="Save" />
+										<h:commandButton action="#{itemsBean.saveEmail}" value="#{msgs.save}" />
 									</h:form>
 								</c:otherwise>
 							</c:choose>
@@ -53,19 +53,19 @@
 					<div class="grid_5">
 						<div class="login rounded">
 							<h2>#{itemsBean.person.name}</h2>
-							<div><h:link styleClass="logout" outcome="pretty:logout">Logout user</h:link></div>
+							<div><h:link styleClass="logout" outcome="pretty:logout">#{msgs.logout}</h:link></div>
 						</div>
 						<div class="notMissing rounded">
-							<h2>Add followed type</h2>
+							<h2>#{msgs.add_followed_type}</h2>
 							<f:view>
 								<h:form>
 									<h:selectOneListbox id="addItemType" size="1" value="#{itemsBean.itemId}">
-										<f:selectItem id="item1" itemLabel="Choose an item type" itemValue="0" />
+										<f:selectItem id="item1" itemLabel="#{msgs.choose_item}" itemValue="0" />
 										<c:forEach items="#{itemsBean.notFollowedItemTypes}" var="item">
 											<f:selectItem itemValue="#{item.id}" itemLabel="#{item.name}" />
 										</c:forEach>
 									</h:selectOneListbox>
-									<h:commandButton action="#{itemsBean.addItem}" value="Add" />
+									<h:commandButton action="#{itemsBean.addItem}" value="#{msgs.add}" />
 								</h:form>
 							</f:view>
 						</div>
