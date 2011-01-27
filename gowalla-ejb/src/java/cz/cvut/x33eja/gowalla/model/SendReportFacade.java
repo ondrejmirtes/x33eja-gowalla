@@ -5,6 +5,7 @@
 
 package cz.cvut.x33eja.gowalla.model;
 
+import cz.cvut.x33eja.gowalla.model.item.IItemFacadeLocal;
 import cz.cvut.x33eja.gowalla.model.item.IItemTypeFacadeLocal;
 import cz.cvut.x33eja.gowalla.model.item.Item;
 import cz.cvut.x33eja.gowalla.model.person.IPersonFacadeLocal;
@@ -41,13 +42,30 @@ public class SendReportFacade implements SendReportFacadeLocal {
 	private IItemTypeFacadeLocal itemTypeFacade;
 
 	@Inject
+	private IItemFacadeLocal itemFacade;
+
+	@Inject
 	private IPersonFacadeLocal personFacade;
 
 	@Override
     public void sendReport(Person person) {
 		List<Spot> spots = spotFacade.findNearestSpots(person.getLocation(), 20);
-		List<Item> items = itemTypeFacade.findFollowedItems(person, spots);
-		sendEmail(person.getEmail(), person.getName(), "test");
+		//List<Item> items = itemTypeFacade.findFollowedItems(person, spots);
+		List<Item> items = itemFacade.findAll();
+
+		StringBuilder sb = new StringBuilder();
+		sb.append("<ul>");
+
+		System.out.println(spots.size());
+		System.out.println(items.size());
+
+		for (Item i : items) {
+			sb.append("<li>").append(i.getNumber()).append("</li>");
+		}
+
+		sb.append("</ul>");
+
+		sendEmail(person.getEmail(), person.getName(), sb.toString());
 	}
 
 	@Override
@@ -81,7 +99,7 @@ public class SendReportFacade implements SendReportFacadeLocal {
 			message.setFrom(new InternetAddress("gospot@gowalla.com", "GoSpot Report"));
 			message.setRecipient(Message.RecipientType.TO, new InternetAddress(toEmail, toName));
 			message.setSubject("GoSpot Report");
-			message.setText(text);
+			message.setContent(text, "text/html");
 
 			Transport.send(message);
 

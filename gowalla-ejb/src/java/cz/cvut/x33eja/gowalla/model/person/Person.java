@@ -28,7 +28,7 @@ public class Person extends SimpleEntity {
 
 	private String name;
 
-	@Pattern(regexp="^[A-Za-z0-9._%+-]+@([A-Za-z0-9-]+\.)+([A-Za-z0-9]{2,4}|museum)$", message="Invalid e-mail")
+	@Pattern(regexp="^[A-Za-z0-9._%+-]+@([A-Za-z0-9-]+\\.)+([A-Za-z0-9]{2,4}|museum)$", message="Invalid e-mail")
 	private String email;
 
 	private double latitude;

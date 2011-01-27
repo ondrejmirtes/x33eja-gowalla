@@ -5,6 +5,7 @@ import com.ginsberg.gowalla.exception.GowallaException;
 import com.ginsberg.gowalla.exception.GowallaRequestException;
 import com.ginsberg.gowalla.Gowalla;
 import com.ginsberg.gowalla.ItemContext;
+import com.ginsberg.gowalla.dto.UserEvent;
 
 import cz.cvut.x33eja.gowalla.model.item.*;
 import cz.cvut.x33eja.gowalla.model.oauth.OAuth;
@@ -212,10 +213,13 @@ public class GowallaFacade implements IGowallaFacadeLocal {
 	@Override
 	public void updatePersonLocation(Person person) {
 		try {
-			GeoPoint point = getGowalla().getSpot(getGowalla().getUser().getLastCheckin().getSpot().getId()).getGeoLocation();
-			Location location = new Location(point.getLatitude().doubleValue(), point.getLongitude().doubleValue());
-			person.setLocation(location);
-			personFacade.edit(person);
+			UserEvent lastCheckin = getGowalla().getUser().getLastCheckin();
+			if (lastCheckin != null) {
+				GeoPoint point = getGowalla().getSpot(lastCheckin.getSpot().getId()).getGeoLocation();
+				Location location = new Location(point.getLatitude().doubleValue(), point.getLongitude().doubleValue());
+				person.setLocation(location);
+				personFacade.edit(person);
+			}
 		} catch (GowallaException ex) {
 			Logger.getLogger(GowallaFacade.class.getName()).log(Level.SEVERE, null, ex);
 		}
@@ -230,13 +234,14 @@ public class GowallaFacade implements IGowallaFacadeLocal {
 				newItems.put(iItem.getId(), iItem);
 			}
 
-			for (Item iItem : spot.getItems()) {
+			// TODO causes concurrent access exception
+			/*for (Item iItem : spot.getItems()) {
 				int id = iItem.getId().intValue();
 				if (!newItems.containsKey(id)) {
 					spot.removeItem(iItem); // remove items which are no longer present
 				}
 				newItems.remove(id);
-			}
+			}*/
 
 			for (com.ginsberg.gowalla.dto.Item iItem : newItemsList) { // add new items
 				Item newItem = getItem(iItem);

@@ -24,9 +24,10 @@ public class CronFacade implements CronFacadeLocal {
 	@Inject
 	private IGowallaFacadeLocal gowallaFacade;
 
-	/*@Schedule(second="0", minute="0/2", hour="0/1")*/
+	@Schedule(second="0/10", minute="0/1", hour="0/1")
     public void updatePersons() {
 		for (Person p : personFacade.findAll()) {
+			gowallaFacade.setAuthKey(p.getOAuth().getCode());
 			gowallaFacade.updatePersonLocation(p);
 			gowallaFacade.updateNearestSpots(p.getLocation());
 		}
